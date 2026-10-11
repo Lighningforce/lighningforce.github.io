@@ -1,0 +1,2425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Srithvik Ellanki Portfolio</title>
+<meta name="description" content="Engineering portfolio of Srithvik Ellanki, Aerospace Engineering (Astronautics) at Florida Institute of Technology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: photo-led project pages behind a sticky tab rail; the active tab carries a short red flight tag. Ruled summary strips, packed spec modules, one vertical test timeline. */
+:root{
+  --bg:#e8ebea;       /* brushed aluminum */
+  --surface:#f6f7f6;  /* work surface */
+  --ink:#1b1f22;
+  --muted:#535c62;
+  --rule:#c9cfce;
+  --steel:#6c767c;    /* safety wire */
+  --fig:#dce0df;
+  --tag:#c8261e;      /* flight tag red: active tab and real anomalies only */
+  --ok:#2d6a45;
+  --warn:#8f6110;
+  --cad:#2f3742;      /* matte behind the Inventor renders, same in both themes */
+  --plate:#ffffff;    /* white drawing sheets, same in both themes */
+  --plate-ink:#151a1e; --plate-muted:#4d555b; /* text on the white sheets, same in both themes */
+  --sky-top:#13213a; --sky-deep:#070b14; --sky-ink:#eef2f8; --sky-muted:#a3afc2; --sky-glow:#6fb0ff; /* night sky masthead, one look in both themes */
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#131618; --surface:#1b1f22; --ink:#e6e9e8; --muted:#9aa3a8; --rule:#2e3438;
+  --steel:#8d979c; --fig:#22272a; --tag:#f0574d; --ok:#6cc08b; --warn:#d8a849; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#131618; --surface:#1b1f22; --ink:#e6e9e8; --muted:#9aa3a8; --rule:#2e3438;
+  --steel:#8d979c; --fig:#22272a; --tag:#f0574d; --ok:#6cc08b; --warn:#d8a849; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;font-variation-settings:"wdth" 100;padding-inline:clamp(16px,4vw,40px);padding-block:0 72px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto}
+a{color:inherit;text-decoration-color:var(--steel);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--tag)}
+:focus-visible{outline:2px solid var(--tag);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:780;font-stretch:80%;font-variation-settings:"wdth" 80;line-height:1.02;letter-spacing:-.01em;text-wrap:balance;margin:0}
+p{margin:0}
+ul,ol{margin:0}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.lab{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.01em}
+.prose{max-width:66ch;display:grid;gap:14px}
+
+/* Project page */
+.page{padding-top:40px;scroll-margin-top:80px}
+.page:not([hidden]){animation:enter .22s ease-out both}
+@keyframes enter{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
+.phead{display:grid;gap:10px;max-width:880px}
+.phead h2{font-size:clamp(40px,6vw,70px)}
+.phead .sub{font-size:clamp(17px,1.7vw,20px);color:var(--muted);max-width:60ch}
+
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);margin-top:26px}
+.strip > div{padding:12px 18px 14px 0;display:grid;gap:2px;align-content:start;min-width:0}
+.strip > div + div{padding-left:18px;border-left:1px solid var(--rule)}
+.strip .v{font-size:15.5px;font-weight:600;line-height:1.4}
+
+.hero{margin-top:22px}
+.hero img{width:100%;display:block;aspect-ratio:2/1;object-fit:cover;background:var(--fig)}
+.hero figcaption{margin-top:8px}
+
+figure{margin:0;display:grid;gap:8px;align-content:start;min-width:0}
+img{height:auto}
+figure img,figure video{width:100%;max-width:100%;display:block;background:var(--fig)}
+figcaption{font-size:13.5px;color:var(--muted);line-height:1.5}
+figcaption b{color:var(--ink);font-weight:650}
+.plate{background:var(--plate);padding:12px;border:1px solid var(--rule)}
+.plate img{background:var(--plate)}
+.plate figcaption{color:var(--plate-muted)}
+.plate figcaption b{color:var(--plate-ink)}
+.cadplate{background:var(--cad);padding:18px}
+.cadplate img{background:transparent}
+
+.sec{padding-top:64px;display:grid;gap:20px}
+.sec > h3{font-size:clamp(26px,3vw,34px);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.sec > h3 small{font-family:var(--body);font-size:14px;font-weight:500;color:var(--muted);letter-spacing:0;font-variation-settings:"wdth" 100}
+
+/* Role + spec modules */
+.brief{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:36px;align-items:start;margin-top:36px}
+.roles-list{display:grid;gap:12px;align-content:start}
+.roles-list h3{font-size:24px}
+.roles-list ul{padding-left:18px;display:grid;gap:9px;font-size:15.5px}
+.roles-list li::marker{color:var(--steel)}
+.mods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.mods.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+.mod{background:var(--surface);padding:14px 14px 13px;display:grid;gap:4px;align-content:start;min-width:0}
+.mod .v{font-family:var(--display);font-size:clamp(26px,2.6vw,34px);font-weight:760;font-variation-settings:"wdth" 82;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mod .v small{font-family:var(--body);font-size:13px;font-weight:500;color:var(--muted);margin-left:4px;font-variation-settings:"wdth" 100}
+.mods .note{grid-column:1/-1;background:var(--surface);padding:10px 14px;font-size:13px;color:var(--muted)}
+
+/* Components */
+.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 32px}
+.part{display:grid;gap:10px;align-content:start;min-width:0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair img{aspect-ratio:4/3;object-fit:cover;width:100%;display:block;background:var(--fig)}
+.pair img.cad{object-fit:contain;background:var(--cad)}
+.pair.solo{grid-template-columns:1fr}
+.pair.solo img{aspect-ratio:16/7;object-fit:contain;background:var(--cad)}
+.part h4{font-size:22px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.part h4 span{font-family:var(--body);font-size:13px;font-weight:500;color:var(--muted);font-variation-settings:"wdth" 100;letter-spacing:0}
+.part p{font-size:15px}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.two.lw{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+.stack{display:grid;gap:16px;align-content:start;min-width:0}
+.eq{font-family:var(--mono);font-size:14px;background:var(--surface);border:1px solid var(--rule);padding:14px 16px;display:grid;gap:6px;overflow-x:auto}
+.eq .lab{font-family:var(--body)}
+
+/* Decisions: ruled rows, title left */
+.rows{display:grid;border-top:1px solid var(--ink)}
+.rows > div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:8px 32px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.rows b{font-family:var(--display);font-size:20px;font-weight:720;font-variation-settings:"wdth" 82;line-height:1.15}
+.rows p{font-size:15.5px;max-width:70ch}
+
+/* Static fire media */
+.media{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px;align-items:start}
+.media video{background:#0e1012}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo img{aspect-ratio:4/5;object-fit:cover}
+
+/* Test campaign timeline */
+.timeline{list-style:none;padding:0;display:grid;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background:var(--rule)}
+.timeline li{display:grid;grid-template-columns:16px minmax(0,190px) minmax(0,1fr) auto;gap:4px 20px;padding:14px 0;align-items:start;position:relative}
+.timeline .node{width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--steel);margin-top:4px;position:relative;z-index:1}
+.timeline li.ok .node{border-color:var(--ok);background:var(--ok)}
+.timeline li.bad .node{border-color:var(--tag);background:var(--tag)}
+.timeline .t{font-family:var(--display);font-size:20px;font-weight:720;font-variation-settings:"wdth" 82;line-height:1.25}
+.timeline p{font-size:15.5px;max-width:64ch}
+.state{font-size:12.5px;font-weight:650;padding:3px 9px;border-radius:2px;border:1px solid currentColor;white-space:nowrap;margin-top:2px}
+.ok .state{color:var(--ok)} .bad .state{color:var(--tag)}
+.timeline li.flight .t{color:var(--ink)}
+
+/* Failure analysis */
+.failure{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:32px;align-items:start;background:var(--surface);border:1px solid var(--rule);border-top:4px solid var(--tag);padding:24px}
+.failure img{max-height:540px;object-fit:cover;object-position:top}
+.failure dl{margin:0;display:grid;gap:18px}
+.failure dt{font-family:var(--display);font-size:19px;font-weight:720;font-variation-settings:"wdth" 82;margin-bottom:4px}
+.failure dt.cause{color:var(--tag)}
+.failure dd{margin:0;font-size:15.5px;max-width:62ch}
+
+.cadpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.cadpair img{aspect-ratio:1/1;object-fit:contain}
+.code{font-family:var(--mono);font-size:13px;line-height:1.6;background:var(--surface);border:1px solid var(--rule);padding:16px 18px;overflow-x:auto;margin:0;white-space:pre;color:var(--ink)}
+.code .c{color:var(--muted)}
+.steps{display:grid;border-top:1px solid var(--ink);counter-reset:step}
+.steps > div{display:grid;grid-template-columns:36px minmax(0,1fr) minmax(0,2fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid var(--rule);counter-increment:step}
+.steps > div::before{content:counter(step);font-family:var(--display);font-size:22px;font-weight:760;color:var(--steel);line-height:1.1}
+.steps b{font-family:var(--display);font-size:20px;font-weight:720;font-variation-settings:"wdth" 82;line-height:1.2}
+.steps p{font-size:15.5px;max-width:70ch}
+.arch{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1.15fr);gap:16px;border-top:2px solid var(--ink);padding-top:16px}
+.arch-head{font-family:var(--display);font-size:22px;font-weight:760;font-variation-settings:"wdth" 82;display:block;margin-bottom:10px}
+.arch-subs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.arch-sub{background:var(--surface);border:1px solid var(--rule);padding:12px 14px;display:grid;gap:6px;align-content:start;font-size:14.5px}
+.arch-sub.mine{border:2px solid var(--ink)}
+.arch-name{font-weight:700;font-size:15.5px}
+.arch-sub span:not(.arch-name){color:var(--muted)}
+.drawings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.drawings img{aspect-ratio:3/2;object-fit:contain}
+table.pugh th{font-size:12px;line-height:1.3;vertical-align:bottom}
+table.pugh td.num,table.pugh th.num{text-align:center}
+table.pugh .win{background:var(--surface);font-weight:700}
+table.pugh tr.total td{border-top:1px solid var(--ink);font-weight:700}
+.score{display:grid;gap:10px}
+.score div{display:grid;grid-template-columns:150px minmax(0,1fr) 44px;gap:12px;align-items:center;font-size:14.5px}
+.score b{text-align:right;font-variant-numeric:tabular-nums}
+.score .track i{display:block;height:10px;background:var(--steel)}
+.score .best{font-weight:650}
+.score .best .track i{background:var(--ink)}
+.ticks{padding-left:20px;display:grid;gap:9px;max-width:72ch;font-size:15.5px}
+.ticks li::marker{color:var(--steel)}
+
+/* Aurelian */
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.team div{background:var(--surface);padding:14px 16px;display:grid;gap:3px;align-content:start}
+.team b{font-family:var(--display);font-size:19px;font-weight:720;font-variation-settings:"wdth" 82}
+.team p{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table.dt{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+table.dt.compact{min-width:0;font-size:14.5px}
+table.dt th{text-align:left;font-weight:650;font-size:13px;color:var(--muted);padding:8px 16px 8px 0;border-bottom:1px solid var(--ink)}
+table.dt td{padding:11px 16px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+table.dt td.id{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+table.phases td:first-child{white-space:nowrap;font-weight:650}
+.deliverable{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--surface);border:1px solid var(--rule);padding:clamp(20px,3vw,36px);margin-top:64px}
+.deliverable h3{font-size:clamp(32px,4.4vw,52px)}
+.deliverable .prose p{font-size:17px}
+.fs{display:grid;gap:9px}
+.fsrow{display:grid;grid-template-columns:132px minmax(0,1fr) 72px;gap:12px;align-items:center;font-size:14.5px}
+.fsrow b{font-weight:650;text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:10px;position:relative}
+.bar::after{content:"";position:absolute;left:20%;top:-4px;bottom:-4px;width:1px;background:var(--ink)}
+.bar i{display:block;height:100%;background:var(--steel)}
+.bar i.lo{background:var(--warn)}
+.fsaxis{display:grid;grid-template-columns:132px minmax(0,1fr) 72px;gap:12px;font-size:12px;color:var(--muted)}
+.fsaxis span:nth-child(2){position:relative;height:16px}
+.fsaxis em{position:absolute;left:20%;transform:translateX(-50%);font-style:normal;white-space:nowrap}
+
+/* L1 */
+.l1{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start;margin-top:28px}
+.l1 figure img{max-height:760px;object-fit:cover}
+.kv{display:grid;border-top:2px solid var(--ink)}
+.kv div{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--rule);font-size:15.5px}
+.kv .k{color:var(--muted);font-weight:500}
+.kv .v{font-weight:650;text-align:right}
+
+/* Rice */
+.intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:start;margin-top:36px}
+.intro .prose p{font-size:17px}
+.module{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px;align-items:start;padding-top:56px}
+.module .mtext{display:grid;gap:10px;align-content:start;position:sticky;top:110px}
+.module h3{font-size:clamp(26px,3vw,32px)}
+.module p{font-size:15.5px}
+.mgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mgrid .span2{grid-column:1/-1}
+.mgrid img.land{aspect-ratio:3/2;object-fit:cover}
+.mgrid img.tall{aspect-ratio:2/3;object-fit:cover}
+.mgrid img.sq,.mgrid video{aspect-ratio:1/1;object-fit:cover}
+.mgrid video{background:#0e1012}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.gallery img{aspect-ratio:4/3;object-fit:cover}
+.gallery .g-tall{grid-row:span 2}
+.gallery .g-tall img{aspect-ratio:auto;height:100%;min-height:0}
+.gallery .g-wide{grid-column:span 2}
+.gallery .g-wide img{aspect-ratio:2/1}
+.gallery .g-full{grid-column:1/-1}
+.gallery .g-full img{aspect-ratio:21/9;object-position:center 40%}
+
+/* Open slots */
+.empty{border:1.5px dashed var(--rule);padding:clamp(56px,10vw,110px) 24px;display:grid;gap:10px;justify-items:center;text-align:center;margin-top:8px}
+.empty h2{font-size:clamp(32px,4.5vw,46px);color:var(--muted)}
+.empty p{color:var(--muted);max-width:44ch}
+
+footer{margin-top:88px;padding-top:18px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer .email{user-select:all}
+
+@media (max-width:900px){
+  .mast{grid-template-columns:1fr}
+  .contact{text-align:left;justify-items:start}
+  .brief,.two,.two.lw,.failure,.l1,.intro,.media,.deliverable{grid-template-columns:1fr}
+  .mods.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .strip > div:nth-child(3){padding-left:0;border-left:0}
+  .strip > div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .parts{grid-template-columns:1fr}
+  .rows > div{grid-template-columns:1fr}
+  .steps > div{grid-template-columns:36px minmax(0,1fr)}
+  .arch{grid-template-columns:1fr}
+  .drawings{grid-template-columns:1fr 1fr}
+  .steps > div p{grid-column:2}
+  .team{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .module{grid-template-columns:1fr;gap:18px}
+  .module .mtext{position:static}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery .g-tall{grid-row:auto}
+  .gallery .g-tall img{aspect-ratio:3/4;height:auto}
+  .gallery .g-wide{grid-column:1/-1}
+  .timeline li{grid-template-columns:16px minmax(0,1fr) auto}
+  .timeline li p{grid-column:2/-1}
+}
+@media (max-width:560px){
+  .hero img{aspect-ratio:4/3}
+  .mods,.mods.six{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .team{grid-template-columns:1fr}
+  .mgrid,.gallery{grid-template-columns:1fr}
+  .gallery .g-wide img,.gallery .g-full img{aspect-ratio:4/3}
+  .fsrow,.fsaxis{grid-template-columns:104px minmax(0,1fr) 58px}
+  .score div{grid-template-columns:120px minmax(0,1fr) 40px}
+  .failure{padding:16px}
+  .tab{padding-right:16px;margin-right:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .page:not([hidden]){animation:none}
+  .marker.ready{transition:none}
+}
+
+/* ===== Site shell: dark home (hero + about), separate Work page, project pages, page transitions ===== */
+body{overflow-x:clip}
+.view:not([hidden]){animation:enter .3s ease-out both}
+
+/* ---------- Top bar ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;padding-top:env(safe-area-inset-top,0px);padding-inline:clamp(16px,4vw,40px);background:var(--bg);border-bottom:1px solid var(--rule);transition:background-color .3s ease,border-color .3s ease}
+.topbar-inner{max-width:1240px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-family:var(--display);font-weight:780;font-variation-settings:"wdth" 82;font-size:20px;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.navlinks{display:flex;align-items:center;gap:clamp(6px,1.4vw,14px);font-size:15px;font-weight:600}
+.nav-item{position:relative}
+.nav-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--muted);padding:10px 10px;border-radius:999px;background:none;border:0;font:inherit;cursor:pointer;transition:color .15s ease,background-color .2s ease}
+.nav-link[aria-current="page"]{color:var(--ink)}
+.nav-link .chev{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .25s var(--ease)}
+.nav-item.open .chev{transform:translateY(1px) rotate(225deg)}
+@media (hover:hover) and (pointer:fine){.nav-link:hover{color:var(--ink)}}
+.topbar.over{background:linear-gradient(rgba(5,9,18,.6),rgba(5,9,18,0));border-bottom-color:transparent}
+.topbar.over .brand,.topbar.over .nav-link[aria-current="page"]{color:var(--sky-ink)}
+.topbar.over .nav-link{color:var(--sky-muted)}
+@media (hover:hover) and (pointer:fine){.topbar.over .nav-link:hover{color:var(--sky-ink)}}
+.topbar :focus-visible{outline:2px solid var(--sky-glow);outline-offset:2px}
+
+/* Dropdown panels (projects list, contact) */
+.menu{position:absolute;top:calc(100% + 8px);right:0;width:min(400px,calc(100vw - 32px));background:#0b111d;color:var(--sky-ink);border:1px solid rgba(238,242,248,.12);box-shadow:0 30px 70px rgba(2,6,16,.45);padding:10px;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top right;transition:opacity .18s ease,transform .22s var(--ease),visibility 0s linear .22s}
+.nav-item.open .menu{opacity:1;visibility:visible;transform:none;transition:opacity .18s ease,transform .22s var(--ease),visibility 0s}
+.menu-head{display:flex;justify-content:space-between;align-items:baseline;padding:6px 8px 10px;font-size:13px;color:var(--sky-muted)}
+.menu-head a{color:var(--sky-ink);font-weight:650;text-decoration:none}
+.mitem{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:center;padding:8px;text-decoration:none;color:inherit;transition:background-color .15s ease}
+.mitem img{width:56px;height:42px;object-fit:cover;display:block;transition:transform .35s var(--ease)}
+.mitem.blueprint img{filter:invert(1) hue-rotate(180deg);background:#fff}
+.mitem b{display:block;font-size:15px;font-weight:650;color:var(--sky-ink)}
+.mitem span{font-size:12.5px;color:var(--sky-muted)}
+.mitem:focus-visible{outline:2px solid var(--sky-glow);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.mitem:hover{background:rgba(238,242,248,.06)}.mitem:hover img{transform:scale(1.08)}}
+.contact-menu{width:min(340px,calc(100vw - 32px));padding:18px;display:grid;gap:14px}
+.contact-menu .email{font-weight:650;font-size:16px;user-select:all}
+.contact-menu .row{display:flex;flex-wrap:wrap;gap:8px}
+
+.view{padding-top:calc(64px + env(safe-area-inset-top,0px))}
+
+/* ---------- Buttons ---------- */
+.btn{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:12px;font:inherit;font-size:15.5px;font-weight:650;text-decoration:none;white-space:nowrap;padding:14px 26px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .16s var(--ease),color .3s ease,border-color .3s ease}
+.btn:active{transform:scale(.97)}
+.btn-ghost{background:transparent;color:var(--sky-ink);border-color:rgba(238,242,248,.32)}
+.btn-ghost::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--sky-ink);clip-path:circle(0% at var(--fx,50%) var(--fy,50%));transition:clip-path .45s var(--ease)}
+.btn-small{padding:9px 16px;font-size:13.5px}
+@media (hover:hover) and (pointer:fine){
+  .btn-ghost:hover{color:var(--sky-deep);border-color:var(--sky-ink)}
+  .btn-ghost:hover::before{clip-path:circle(150% at var(--fx,50%) var(--fy,50%))}
+}
+/* The main call to action: arrow line grows, fill sweeps in, button leans toward the cursor */
+.launch{background:var(--sky-ink);color:var(--sky-deep);padding:16px 18px 16px 28px;font-size:16.5px;transform:translate(var(--bx,0px),var(--by,0px));transition:transform .35s var(--ease)}
+.launch::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--sky-glow);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.launch .arrow{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--sky-deep);color:var(--sky-ink);transition:transform .45s var(--ease),width .45s var(--ease)}
+.launch .arrow i{display:block;width:14px;height:14px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:translateX(-2px) rotate(45deg)}
+@media (hover:hover) and (pointer:fine){
+  .launch:hover::before{transform:scaleX(1)}
+  .launch:hover .arrow{transform:rotate(-45deg)}
+}
+.launch:active{transform:translate(var(--bx,0px),var(--by,0px)) scale(.97)}
+
+/* "Say hello" pill expands on hover or focus to reveal the contact details */
+.hello{display:inline-grid;grid-template-columns:auto 0fr;align-items:center;border:1px solid rgba(238,242,248,.32);border-radius:999px;color:var(--sky-ink);transition:grid-template-columns .5s var(--ease),border-color .3s ease;max-width:100%}
+.hello > button{font:inherit;font-size:15.5px;font-weight:650;color:inherit;background:none;border:0;padding:14px 22px;cursor:pointer;white-space:nowrap}
+.hello-more{overflow:hidden;min-width:0}
+.hello-more > div{display:flex;align-items:center;gap:14px;padding-right:18px;white-space:nowrap;opacity:0;transform:translateX(-8px);transition:opacity .3s ease,transform .45s var(--ease)}
+.hello .email{font-weight:600;user-select:all}
+.hello a{color:var(--sky-ink)}
+.hello.open,.hello:focus-within{grid-template-columns:auto 1fr;border-color:rgba(238,242,248,.6)}
+.hello.open .hello-more > div,.hello:focus-within .hello-more > div{opacity:1;transform:none}
+@media (hover:hover) and (pointer:fine){.hello:hover{grid-template-columns:auto 1fr;border-color:rgba(238,242,248,.6)}.hello:hover .hello-more > div{opacity:1;transform:none}}
+.copy{font:inherit;font-size:13px;font-weight:650;cursor:pointer;border-radius:999px;padding:6px 12px;border:1px solid rgba(238,242,248,.32);background:transparent;color:var(--sky-ink);transition:border-color .2s ease,transform .16s var(--ease)}
+.copy:active{transform:scale(.96)}
+
+/* ---------- Home (one look: night sky) ---------- */
+#home{padding-top:0;background:var(--sky-deep);color:var(--sky-ink);margin-inline:calc(-1 * clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px)}
+#home :focus-visible{outline-color:var(--sky-glow)}
+.space{position:relative;isolation:isolate;overflow:hidden;margin-inline:calc(-1 * clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px);min-height:min(100svh,1000px);display:flex;align-items:center;background:radial-gradient(120% 140% at 75% 0%,var(--sky-top) 0%,var(--sky-deep) 64%)}
+.space canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.space-inner{width:100%;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px 56px;align-items:center;padding-block:calc(104px + env(safe-area-inset-top,0px)) 150px}
+.kicker{font-size:15px;font-weight:600;color:var(--sky-muted);letter-spacing:.01em}
+.space h1{font-size:clamp(64px,11vw,156px);font-weight:830;letter-spacing:-.035em;line-height:.88;margin-top:18px;color:var(--sky-ink)}
+.space h1 .word{display:block;overflow:hidden;padding-bottom:.06em}
+.space h1 .ch{display:inline-block;transform:translateY(105%);animation:charup .9s var(--ease) both;animation-delay:calc(.15s + var(--i) * .035s)}
+@keyframes charup{to{transform:none}}
+.space .pitch{font-size:clamp(18px,1.7vw,22px);line-height:1.5;color:var(--sky-muted);max-width:32ch;margin-top:26px}
+.space .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:36px}
+.space .sub-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.portrait{justify-self:center;position:relative;width:min(100%,420px);aspect-ratio:1/1}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 22%;border-radius:50%;display:block;box-shadow:0 0 0 1px rgba(238,242,248,.18),0 0 0 14px rgba(238,242,248,.035),0 40px 90px rgba(3,8,20,.6);animation:portrait 1.2s var(--ease) .35s both}
+@keyframes portrait{from{clip-path:circle(0% at 50% 50%);transform:scale(1.08)}to{clip-path:circle(50% at 50% 50%);transform:none}}
+.rise{animation:rise .9s var(--ease) both}
+.d1{animation-delay:.05s}.d3{animation-delay:.45s}.d4{animation-delay:.55s}.d5{animation-delay:.65s}
+@keyframes rise{from{opacity:.001;transform:translateY(18px)}to{opacity:1;transform:none}}
+@supports (animation-timeline: scroll()){
+  @media (prefers-reduced-motion:no-preference){
+    .space-inner{animation:drift linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+    @keyframes drift{to{transform:translateY(-70px);opacity:.25}}
+  }
+}
+
+/* About */
+.home-wrap{max-width:1160px;margin:0 auto}
+.about-sec{padding-block:clamp(90px,12vw,150px) clamp(40px,6vw,70px)}
+.statement{font-family:var(--display);font-weight:780;font-variation-settings:"wdth" 82;font-size:clamp(38px,5.6vw,80px);line-height:1.02;letter-spacing:-.02em;max-width:17ch;color:var(--sky-ink)}
+.statement .w{display:inline-block;transition:opacity .6s ease,transform .8s var(--ease),filter .6s ease;transition-delay:calc(var(--i) * 45ms)}
+.pre .statement .w{opacity:.08;transform:translateY(.35em);filter:blur(6px)}
+.about-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px 80px;margin-top:clamp(48px,7vw,84px);align-items:start}
+.about-grid h3{font-size:15px;font-family:var(--body);font-weight:650;color:var(--sky-muted);font-variation-settings:"wdth" 100;letter-spacing:.01em;margin-bottom:14px}
+.about-grid p{font-size:clamp(17px,1.5vw,19.5px);line-height:1.7;color:#cdd5e2;max-width:52ch}
+.about-grid p + p{margin-top:14px}
+.lately{font-family:var(--display);font-weight:720;font-variation-settings:"wdth" 82;font-size:clamp(26px,3vw,38px);line-height:1.15;color:var(--sky-muted);margin-top:28px}
+.swap{display:inline-grid;vertical-align:bottom;overflow:hidden;color:var(--sky-ink)}
+.swap span{grid-area:1/1;transition:transform .6s var(--ease),opacity .45s ease,filter .45s ease;white-space:nowrap}
+.swap span.out{transform:translateY(-100%);opacity:0;filter:blur(4px)}
+.swap span.in{transform:translateY(100%);opacity:0;filter:blur(4px)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips span{font-size:15px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid rgba(238,242,248,.18);color:#dde4ee;background:rgba(238,242,248,.03);transition:border-color .25s ease,background-color .25s ease,transform .25s var(--ease)}
+@media (hover:hover) and (pointer:fine){.chips span:hover{border-color:var(--sky-glow);background:rgba(111,176,255,.1);transform:translateY(-2px)}}
+.quick{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:28px;font-size:14.5px;color:var(--sky-muted)}
+.quick b{color:var(--sky-ink);font-weight:650}
+
+/* Outside of engineering */
+.off{padding-block:clamp(56px,8vw,96px) 0}
+.off-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 32px}
+.off-head h3{font-size:clamp(30px,3.6vw,46px);color:var(--sky-ink);letter-spacing:-.015em}
+.off-head p{font-size:17px;color:var(--sky-muted);max-width:40ch}
+.snaps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px}
+.snap{display:grid;gap:12px;margin:0}
+.snap-frame{position:relative;overflow:hidden;height:clamp(300px,34vw,460px);background:#05080f;cursor:zoom-out}
+.snap-frame .bg{position:absolute;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);object-fit:cover;filter:blur(22px) brightness(.55) saturate(1.2);opacity:0;transition:opacity .6s ease}
+.snap-frame img{background:transparent}
+.snap-frame .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--s,1.6));transition:transform .85s var(--ease)}
+.snap figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px;color:var(--sky-muted)}
+.snap figcaption b{font-family:var(--display);font-size:22px;font-weight:720;font-variation-settings:"wdth" 82;color:var(--sky-ink)}
+.snap.open .fg{transform:none}
+.snap.open .bg{opacity:1}
+@media (hover:hover) and (pointer:fine){
+  .snap:hover .fg{transform:none}
+  .snap:hover .bg{opacity:1}
+}
+
+/* Home closer: the only way on is a page change */
+.closer{padding-block:clamp(90px,12vw,150px) clamp(70px,9vw,110px);display:grid;justify-items:start;gap:26px;border-top:1px solid rgba(238,242,248,.1);margin-top:clamp(70px,9vw,110px)}
+.closer h2{font-size:clamp(44px,7vw,104px);letter-spacing:-.03em;line-height:.95;color:var(--sky-ink);max-width:14ch}
+.closer p{font-size:18px;color:var(--sky-muted);max-width:44ch}
+.homefoot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:24px 36px;border-top:1px solid rgba(238,242,248,.1);font-size:14px;color:var(--sky-muted)}
+
+/* ---------- Image tiles (work gallery and next project) ---------- */
+.tile{position:relative;overflow:hidden;display:block;color:var(--sky-ink);text-decoration:none;background:var(--sky-deep);isolation:isolate;--mx:0;--my:0}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .9s var(--ease),filter .6s ease;will-change:transform}
+.tile.blueprint{background:#000}
+.tile.blueprint img{object-fit:contain;padding:6% 8% 30%;filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(1.05)}
+.tile::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,7,14,0) 35%,rgba(4,7,14,.55) 62%,rgba(4,7,14,.92) 100%)}
+.tile-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(18px,2.4vw,30px);display:grid;gap:6px}
+.tile-meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;font-weight:600;color:rgba(238,242,248,.78)}
+.tile h3,.tile h2{font-size:clamp(26px,2.8vw,40px);color:#fff;letter-spacing:-.01em}
+.size-xl h3{font-size:clamp(34px,4.2vw,60px)}
+.tile-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.tile-more > div{overflow:hidden;display:grid;gap:12px}
+.tile-sum{font-size:clamp(15px,1.25vw,17px);line-height:1.5;color:rgba(238,242,248,.86);max-width:46ch;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .45s var(--ease)}
+.tile-cta{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:650;color:#fff;opacity:0;transform:translateY(10px);transition:opacity .35s ease .05s,transform .45s var(--ease) .05s}
+.tile-cta::after{content:"";width:22px;height:1px;background:currentColor;transition:width .45s var(--ease)}
+.tile:focus-visible{outline:3px solid var(--sky-glow);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){
+  .tile:hover img{transform:scale(1.07) translate(calc(var(--mx) * -10px),calc(var(--my) * -10px))}
+  .tile:hover .tile-more,.tile:focus-visible .tile-more{grid-template-rows:1fr}
+  .tile:hover .tile-sum,.tile:hover .tile-cta,.tile:focus-visible .tile-sum,.tile:focus-visible .tile-cta{opacity:1;transform:none}
+  .tile:hover .tile-cta::after{width:38px}
+}
+@media (hover:none),(pointer:coarse){
+  .tile-more{grid-template-rows:1fr}
+  .tile-sum,.tile-cta{opacity:1;transform:none}
+}
+
+/* ---------- Work page ---------- */
+.workhead{padding-top:clamp(48px,7vw,90px);display:grid;gap:16px;max-width:820px}
+.workhead h1{font-size:clamp(64px,10vw,140px);letter-spacing:-.035em;line-height:.88}
+.workhead h1 .word{display:block;overflow:hidden;padding-bottom:.05em}
+.workhead h1 .ch{display:inline-block;transform:translateY(105%)}
+#work:not([hidden]) .workhead h1 .ch{animation:charup .8s var(--ease) both;animation-delay:calc(.1s + var(--i) * .04s)}
+.workhead p{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:52ch}
+.gallery-work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:clamp(230px,22vw,310px);grid-auto-flow:dense;gap:12px;margin-top:44px}
+.size-xl{grid-column:span 2;grid-row:span 2}
+.size-tall{grid-row:span 2}
+.size-wide{grid-column:span 2}
+#work:not([hidden]) .gallery-work .tile{animation:tilein .8s var(--ease) both;animation-delay:calc(.2s + var(--i) * .07s)}
+@keyframes tilein{from{opacity:.001;transform:translateY(28px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- Project pages ---------- */
+.page{padding-top:0}
+.phero{position:relative;isolation:isolate;overflow:hidden;width:100vw;margin-left:calc(50% - 50vw);min-height:min(78svh,720px);display:flex;align-items:flex-end;background:var(--sky-deep);color:var(--sky-ink)}
+.phero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transform:scale(1.02)}
+.phero.blueprint{background:#000}
+.phero.blueprint img{object-fit:contain;padding:84px 5% 48px 50%;filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(1.05)}
+.phero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,7,14,.55) 0%,rgba(4,7,14,0) 22%,rgba(4,7,14,0) 40%,rgba(4,7,14,.88) 100%)}
+.phero-body{width:100%;max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,40px) clamp(32px,5vw,56px);display:grid;gap:12px}
+.phero .lab{color:rgba(238,242,248,.8)}
+.phero h1{font-size:clamp(46px,8vw,112px);color:#fff;letter-spacing:-.025em;line-height:.92}
+.phero .sub{color:rgba(238,242,248,.86);font-size:clamp(17px,1.8vw,22px);max-width:56ch}
+.page:not([hidden]) .phero-body > *{animation:rise .8s var(--ease) both}
+.page:not([hidden]) .phero-body > *:nth-child(2){animation-delay:.08s}
+.page:not([hidden]) .phero-body > *:nth-child(3){animation-delay:.14s}
+.page:not([hidden]) .phero-body > *:nth-child(4){animation-delay:.22s}
+.backlink{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;text-decoration:none;width:max-content;color:rgba(238,242,248,.85)}
+.backlink::before{content:"";width:18px;height:1px;background:currentColor;transition:width .3s var(--ease)}
+@media (hover:hover) and (pointer:fine){.backlink:hover::before{width:30px}}
+.hero-cap{font-size:13.5px;color:var(--muted);margin-top:10px}
+.hero-cap b{color:var(--ink);font-weight:650}
+.page .phero ~ .strip{margin-top:28px}
+.nextup{margin-top:96px;display:grid;gap:16px}
+.nextup .lab{font-size:14px}
+.nextup .tile{height:clamp(300px,34vw,440px)}
+.nextup .tile h2{font-size:clamp(36px,5vw,68px)}
+
+/* Photo viewer */
+.page figure img,.page .pair img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:70;background:rgba(4,7,14,.94);display:grid;grid-template-rows:1fr auto;padding:calc(56px + env(safe-area-inset-top,0px)) clamp(12px,4vw,56px) calc(20px + env(safe-area-inset-bottom,0px));opacity:0;transition:opacity .2s ease}
+.lb.open{opacity:1}
+.lb .lb-stage{min-height:0;display:flex}
+.lb img{max-width:100%;max-height:100%;margin:auto;object-fit:contain;transform:scale(.97);transition:transform .25s var(--ease);min-height:0}
+.lb.open img{transform:none}
+.lb p{color:#cfd7e3;font-size:14.5px;text-align:center;max-width:80ch;margin:14px auto 0}
+.lb p b{color:#fff}
+.lb button{position:absolute;font:inherit;font-size:14px;font-weight:650;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:9px 16px;cursor:pointer}
+.lb .lb-close{top:calc(12px + env(safe-area-inset-top,0px));right:clamp(12px,3vw,32px)}
+.lb .lb-prev{left:clamp(12px,3vw,32px);top:50%;transform:translateY(-50%)}
+.lb .lb-next{right:clamp(12px,3vw,32px);top:50%;transform:translateY(-50%)}
+.lb .lb-count{top:calc(16px + env(safe-area-inset-top,0px));left:clamp(12px,3vw,32px);position:absolute;color:#9aa6b8;font-size:14px}
+.lb :focus-visible{outline:2px solid var(--sky-glow);outline-offset:3px}
+
+/* ---------- Page transitions ---------- */
+.curtain{position:fixed;inset:0;z-index:60;pointer-events:none;background:radial-gradient(120% 140% at 75% 0%,var(--sky-top) 0%,var(--sky-deep) 64%);display:grid;place-items:center;clip-path:circle(0% at 50% 50%);visibility:hidden}
+.curtain b{font-family:var(--display);font-weight:820;font-variation-settings:"wdth" 80;font-size:clamp(44px,8vw,120px);color:var(--sky-ink);letter-spacing:-.03em;opacity:0;transform:translateY(16px);text-align:center;padding-inline:16px}
+.flyer{position:fixed;inset:0;z-index:60;pointer-events:none;width:100%;object-fit:cover;background:var(--sky-deep)}
+
+footer .toplink{color:var(--muted)}
+
+@media (max-width:1000px){
+  .gallery-work{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(220px,34vw,300px)}
+  .snaps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .space-inner{grid-template-columns:1fr;gap:28px;padding-block:calc(88px + env(safe-area-inset-top,0px)) 120px}
+  .portrait{order:-1;justify-self:start;width:min(52vw,220px)}
+  .about-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .brand{font-size:18px}
+  .navlinks{gap:0;font-size:14.5px}
+  .nav-link{padding:10px 8px}
+  .nav-resume{display:none}
+  .menu{position:fixed;top:calc(64px + env(safe-area-inset-top,0px));left:12px;right:12px;width:auto}
+  .gallery-work{grid-template-columns:1fr;grid-auto-rows:auto}
+  .gallery-work .tile{grid-column:auto;grid-row:auto;height:400px}
+  .gallery-work .size-xl{height:460px}
+  .phero.blueprint img{padding:76px 8% 52% 8%}
+  .hello{display:grid;width:100%;grid-template-columns:1fr;border-radius:24px}
+  .hello-more > div{flex-wrap:wrap;padding:0 18px 16px;white-space:normal}
+  .hello:not(.open):not(:focus-within) .hello-more{display:none}
+  .lb .lb-prev,.lb .lb-next{top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:none}
+  .snap-frame{height:300px}
+}
+@media (prefers-reduced-motion:reduce){
+  .view:not([hidden]),.rise,.space h1 .ch,.workhead h1 .ch,.portrait img,#work:not([hidden]) .gallery-work .tile,.page:not([hidden]) .phero-body > *{animation:none;transform:none}
+  .tile img,.tile-more,.tile-sum,.tile-cta,.topbar,.lb,.lb img,.snap-frame .fg,.snap-frame .bg,.statement .w,.swap span,.hello,.hello-more > div,.launch,.launch::before,.btn-ghost::before,.menu{transition:none}
+  .pre .statement .w{opacity:1;transform:none;filter:none}
+}
+
+/* ===== v4: solid top bar, photo pop-outs, Work showcase ===== */
+
+/* Top bar: one dark frosted bar on every page */
+.topbar,.topbar.over{background:rgba(7,11,20,.88);border-bottom:1px solid rgba(238,242,248,.09);box-shadow:0 8px 30px rgba(2,6,16,.18)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .topbar,.topbar.over{background:rgba(7,11,20,.93);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%)}
+}
+.topbar .brand,.topbar.over .brand{color:var(--sky-ink)}
+.topbar .nav-link,.topbar.over .nav-link{color:var(--sky-muted)}
+.topbar .nav-link[aria-current="page"],.topbar.over .nav-link[aria-current="page"]{color:var(--sky-ink)}
+.topbar .nav-link[aria-current="page"]::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:var(--tag);border-radius:2px}
+.nav-link{position:relative}
+@media (hover:hover) and (pointer:fine){.topbar .nav-link:hover{color:var(--sky-ink);background:rgba(238,242,248,.07)}}
+
+/* Hobby photos stay as framed crops; the pop-out shows the whole shot */
+.snap-frame{cursor:zoom-in}
+.snap-frame .bg{display:none}
+.snap:hover .fg,.snap.open .fg{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--s,1.6))}
+.snap-frame .fg{transition:transform .6s var(--ease)}
+
+/* Scrapbook pop-out: a white bordered print lifted off the page */
+.pop{position:fixed;z-index:55;left:0;top:0;pointer-events:none;background:#fbfaf7;padding:10px 10px 12px;box-shadow:0 2px 4px rgba(0,0,0,.18),0 24px 60px rgba(2,6,16,.45),0 60px 120px rgba(2,6,16,.25);transform-origin:center;will-change:transform,opacity}
+.pop img{display:block;width:100%;height:auto;max-width:none;background:#fff}
+.pop.cad img{background:#fff}
+.pop span{display:block;font-size:12.5px;line-height:1.35;color:#3d444b;padding:9px 2px 0;max-width:100%}
+.pop span b{color:#141a1f}
+.zoomable{cursor:zoom-in}
+
+/* ---------- Work page: dark showcase ---------- */
+#work{background:var(--sky-deep);color:var(--sky-ink);width:100vw;margin-left:calc(50% - 50vw);padding-bottom:clamp(70px,9vw,120px);position:relative;isolation:isolate;overflow:hidden}
+#work::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 85% 0%,rgba(19,33,58,.95) 0%,rgba(7,11,20,0) 70%),radial-gradient(50% 40% at 0% 100%,rgba(19,33,58,.6) 0%,rgba(7,11,20,0) 70%)}
+#work :focus-visible{outline:2px solid var(--sky-glow);outline-offset:3px}
+.work-inner{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+#work .workhead{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px 40px;padding-top:clamp(48px,7vw,84px)}
+#work .workhead h1{color:var(--sky-ink)}
+#work .workhead p{color:var(--sky-muted);grid-column:1/-1;max-width:56ch}
+.reel-nav{display:flex;align-items:center;gap:10px;padding-bottom:10px}
+.rbtn{width:52px;height:52px;border-radius:50%;border:1px solid rgba(238,242,248,.28);background:transparent;color:var(--sky-ink);display:grid;place-items:center;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,transform .16s var(--ease)}
+.rbtn i{width:12px;height:12px;border-top:2px solid currentColor;border-right:2px solid currentColor}
+.rbtn.prev i{transform:translateX(2px) rotate(-135deg)}
+.rbtn.next i{transform:translateX(-2px) rotate(45deg)}
+.rbtn:active{transform:scale(.94)}
+.rbtn:disabled{opacity:.35;cursor:default}
+@media (hover:hover) and (pointer:fine){.rbtn:not(:disabled):hover{background:var(--sky-ink);color:var(--sky-deep);border-color:var(--sky-ink)}}
+
+.reel{--gut:max(clamp(16px,4vw,40px),calc((100vw - 1240px) / 2 + clamp(16px,4vw,40px)));display:flex;gap:clamp(14px,2vw,24px);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:36px var(--gut) 8px;scroll-padding-inline:var(--gut);scrollbar-width:none;cursor:grab;-webkit-user-select:none;user-select:none}
+.reel::-webkit-scrollbar{display:none}
+.reel.dragging{cursor:grabbing;scroll-snap-type:none}
+.reel.dragging .panel{pointer-events:none}
+.panel{flex:0 0 min(74vw,980px);height:min(66vh,620px);min-height:420px;scroll-snap-align:start;position:relative;overflow:hidden;display:block;text-decoration:none;color:#fff;background:#05080f;transform:scale(var(--ps,1));opacity:var(--po,1);transform-origin:center bottom;transition:transform .5s var(--ease),opacity .5s ease;--zs:1.08;--px:0px}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateX(var(--px)) scale(var(--zs));transition:transform .9s var(--ease);-webkit-user-drag:none}
+.panel.blueprint{background:#000}
+.panel.blueprint img{object-fit:contain;padding:5% 4% 26% 42%;filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(1.05)}
+.panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,7,14,.15) 0%,rgba(4,7,14,0) 30%,rgba(4,7,14,.35) 55%,rgba(4,7,14,.94) 100%),linear-gradient(90deg,rgba(4,7,14,.55) 0%,rgba(4,7,14,0) 55%)}
+.panel-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(22px,3.4vw,44px);display:grid;gap:10px;max-width:760px}
+.panel-meta{display:flex;flex-wrap:wrap;gap:6px 10px}
+.panel-meta span{font-size:13px;font-weight:650;color:#e9eef6;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.panel h2{font-size:clamp(40px,6vw,88px);letter-spacing:-.03em;line-height:.92;color:#fff}
+.panel p{font-size:clamp(16px,1.4vw,19px);line-height:1.5;color:rgba(238,242,248,.86);max-width:48ch}
+.panel .open{display:inline-flex;align-items:center;gap:12px;margin-top:6px;font-size:15px;font-weight:650;color:#fff;width:max-content}
+.panel .open i{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff;transition:transform .45s var(--ease)}
+.panel .open i::before{content:"";width:11px;height:11px;border-top:2px solid var(--sky-deep);border-right:2px solid var(--sky-deep);transform:translateX(-2px) rotate(45deg)}
+@media (hover:hover) and (pointer:fine){
+  .panel:hover{--zs:1.14}
+  .panel:hover .open i{transform:rotate(-45deg) scale(1.08)}
+}
+.reel-foot{display:flex;align-items:center;gap:18px;margin-top:22px}
+.reel-track{flex:1;height:2px;background:rgba(238,242,248,.14);position:relative;overflow:hidden}
+.reel-track i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--sky-ink);transform-origin:left;transform:scaleX(var(--prog,.16))}
+.reel-hint{font-size:14px;color:var(--sky-muted);white-space:nowrap}
+
+/* Index: every project as a big row, preview follows the cursor */
+.index{margin-top:clamp(70px,9vw,120px)}
+.index-head{display:flex;justify-content:space-between;align-items:end;gap:16px;border-bottom:1px solid rgba(238,242,248,.14);padding-bottom:16px}
+.index-head h2{font-size:clamp(30px,3.6vw,46px);color:var(--sky-ink);letter-spacing:-.015em}
+.index-head span{font-size:14px;color:var(--sky-muted)}
+.irow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,220px) 170px;gap:12px 28px;align-items:center;padding:22px 0;border-bottom:1px solid rgba(238,242,248,.1);text-decoration:none;color:var(--sky-ink);position:relative}
+.irow .it{font-family:var(--display);font-weight:780;font-variation-settings:"wdth" 80;font-size:clamp(30px,4.4vw,64px);line-height:1;letter-spacing:-.025em;transition:transform .5s var(--ease),color .3s ease}
+.irow .ig{font-size:15px;color:var(--sky-muted)}
+.irow .id{font-size:15px;color:var(--sky-muted);text-align:right}
+.irow img{display:none}
+.index-list{position:relative}
+.index-list:hover .irow .it{color:rgba(238,242,248,.35)}
+@media (hover:hover) and (pointer:fine){
+  .index-list .irow:hover .it{color:var(--sky-ink);transform:translateX(18px)}
+}
+.follow{position:fixed;left:0;top:0;z-index:45;width:340px;aspect-ratio:4/3;pointer-events:none;overflow:hidden;opacity:0;transform:translate(-50%,-50%) scale(.85);transition:opacity .25s ease,transform .35s var(--ease);box-shadow:0 30px 80px rgba(2,6,16,.55)}
+.follow.on{opacity:1}
+.follow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease}
+.follow img.on{opacity:1}
+.follow img.blueprint{object-fit:contain;filter:invert(1) hue-rotate(180deg);background:#fff;padding:8px}
+
+@media (max-width:900px){
+  #work .workhead{grid-template-columns:1fr}
+  .reel-nav{display:none}
+  .irow{grid-template-columns:72px minmax(0,1fr);gap:4px 16px;padding:16px 0}
+  .irow img{display:block;grid-row:1/3;width:72px;height:56px;object-fit:cover}
+  .irow .id{text-align:left;grid-column:2}
+  .irow .ig{display:none}
+  .irow .it{font-size:clamp(26px,7vw,40px)}
+  .index-list:hover .irow .it{color:var(--sky-ink)}
+}
+@media (max-width:640px){
+  .panel{flex-basis:86vw;height:64vh;min-height:400px}
+  .panel.blueprint img{padding:16% 8% 46% 8%}
+  .reel-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .panel,.panel img,.irow .it,.follow,.follow img{transition:none}
+}
+
+[hidden]{display:none!important}
+body:has(#work:not([hidden])),body:has(#home:not([hidden])),body:has(#about-page:not([hidden])){background:var(--sky-deep)}
+#work{margin-bottom:0}
+
+/* ===== v6: About as its own page, reel motion, end slide ===== */
+#about-page{background:var(--sky-deep);color:var(--sky-ink);margin-inline:calc(-1 * clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px);padding-top:clamp(20px,4vw,40px)}
+#about-page :focus-visible{outline-color:var(--sky-glow)}
+.space{min-height:100svh}
+
+/* About me button at the foot of the landing hero */
+.to-about{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--sky-ink);font-size:15px;font-weight:650;letter-spacing:.01em}
+.to-about span{padding:11px 22px;border-radius:999px;border:1px solid rgba(238,242,248,.3);background:rgba(7,11,20,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background-color .25s ease,color .25s ease,border-color .25s ease,transform .16s var(--ease)}
+.to-about i{width:1px;height:34px;background:linear-gradient(rgba(238,242,248,.7),rgba(238,242,248,0));position:relative;overflow:hidden}
+.to-about i::after{content:"";position:absolute;left:-2px;top:-8px;width:5px;height:8px;border-radius:3px;background:var(--sky-ink);animation:drip 2.2s cubic-bezier(.77,0,.175,1) infinite}
+@keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}80%{opacity:1}100%{transform:translateY(42px);opacity:0}}
+.to-about:active span{transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){.to-about:hover span{background:var(--sky-ink);color:var(--sky-deep);border-color:var(--sky-ink)}}
+.d6{animation-delay:.9s}
+
+/* Work header without the arrows */
+#work .workhead{grid-template-columns:1fr}
+
+/* Reel footer: count, progress, arrows */
+.reel-foot{gap:22px}
+.reel-count{font-family:var(--mono,ui-monospace,monospace);font-size:14px;color:var(--sky-muted);display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
+body:has(#home:not([hidden])){padding-bottom:0}
+.rc-n{display:inline-block;overflow:hidden;line-height:1.2}
+.rc-n b{display:inline-block;color:var(--sky-ink);font-weight:500}
+.reel-track i{transition:transform .45s var(--ease)}
+.reel-foot .reel-nav{padding-bottom:0}
+@media (max-width:900px){.reel-foot .reel-nav{display:flex}.rbtn{width:44px;height:44px}}
+
+/* Reel motion: panels sweep in, the active one comes alive */
+@keyframes reelin{from{translate:180px 0;opacity:0}}
+#work:not([hidden]) .panel{animation:reelin 1.1s var(--ease) backwards;animation-delay:calc(.12s + var(--i) * .09s)}
+.panel:not(.blueprint) img{filter:brightness(var(--pbr,1)) saturate(var(--psa,1));transition:transform .9s var(--ease),filter .8s ease}
+.panel:not(.on):not(.blueprint){--pbr:.6;--psa:.55}
+.panel.blueprint img{transition:transform .9s var(--ease),opacity .8s ease}
+.panel.blueprint:not(.on) img{opacity:.55}
+.panel-body > *{transition:transform .8s var(--ease),opacity .55s ease,clip-path .8s var(--ease)}
+.panel:not(.on) .panel-body > *{opacity:0;transform:translateY(30px);transition-duration:.35s,.25s,.35s;transition-delay:0s}
+.panel:not(.on) .panel-body h2{clip-path:inset(0 0 100% 0)}
+.panel.on .panel-body h2{clip-path:inset(0 0 -10% 0)}
+.panel.on .panel-body > *:nth-child(1){transition-delay:.08s}
+.panel.on .panel-body > *:nth-child(2){transition-delay:.14s}
+.panel.on .panel-body > *:nth-child(3){transition-delay:.22s}
+.panel.on .panel-body > *:nth-child(4){transition-delay:.3s}
+
+/* End slide: more to come */
+.panel.soon{background:#060a14;cursor:inherit}
+.panel.soon::after{background:linear-gradient(180deg,rgba(4,7,14,0) 40%,rgba(4,7,14,.85) 100%),linear-gradient(90deg,rgba(4,7,14,.6) 0%,rgba(4,7,14,0) 60%)}
+.soon-art{position:absolute;inset:0;overflow:hidden;background-image:linear-gradient(rgba(140,175,235,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(140,175,235,.08) 1px,transparent 1px),linear-gradient(rgba(140,175,235,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(140,175,235,.035) 1px,transparent 1px);background-size:120px 120px,120px 120px,24px 24px,24px 24px;animation:gridpan 40s linear infinite}
+@keyframes gridpan{to{background-position:120px 120px,120px 120px,24px 24px,24px 24px}}
+.soon-art .ring{position:absolute;left:68%;top:42%;border-radius:50%;border:1px dashed rgba(170,200,255,.28);translate:-50% -50%}
+.soon-art .r1{width:min(46vw,440px);aspect-ratio:1;animation:spin 38s linear infinite}
+.soon-art .r2{width:min(30vw,280px);aspect-ratio:1;border-style:solid;border-color:rgba(170,200,255,.16);animation:spin 22s linear infinite reverse}
+.soon-art .r3{width:min(12vw,110px);aspect-ratio:1;border:1px solid rgba(238,242,248,.5);background:radial-gradient(circle at 35% 30%,rgba(120,160,230,.35),rgba(10,16,30,.9) 70%);box-shadow:0 0 60px rgba(90,140,230,.25)}
+.soon-art .ring i{position:absolute;top:-5px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:2px;background:var(--sky-ink);box-shadow:0 0 14px rgba(200,220,255,.8)}
+.soon-art .r2 i{width:7px;height:7px;margin-left:-3.5px;top:-4px;border-radius:50%;background:#e8b04a;box-shadow:0 0 12px rgba(232,176,74,.8)}
+@keyframes spin{to{rotate:360deg}}
+.soon-art .hazard{position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(-45deg,#e8b04a 0 14px,#0b0f18 14px 28px);background-size:40px 10px;opacity:.85;animation:hazard 1.6s linear infinite}
+@keyframes hazard{to{background-position:40px 0}}
+.panel.soon .panel-meta span{background:rgba(232,176,74,.14);border-color:rgba(232,176,74,.45);color:#f3d08d}
+.panel.soon .open{text-decoration:none}
+@media (max-width:640px){.soon-art .ring{left:60%;top:32%}.soon-art .r1{width:80vw}.soon-art .r2{width:52vw}.soon-art .r3{width:22vw}}
+
+@media (prefers-reduced-motion:reduce){
+  .to-about i::after,.soon-art,.soon-art .ring,.soon-art .hazard{animation:none}
+  #work:not([hidden]) .panel{animation:none}
+  .panel:not(.on) .panel-body > *{opacity:1;transform:none}
+  .panel:not(.on) .panel-body h2{clip-path:none}
+}
+@media (max-width:900px){.space-inner{padding-bottom:150px}.to-about{bottom:calc(22px + env(safe-area-inset-bottom,0px))}}
+body{margin:0}
+#work .workhead{padding-top:clamp(28px,4vw,52px);gap:12px 40px}
+.reel{padding-top:28px}
+.panel{height:clamp(320px,calc(100svh - 410px),640px);min-height:0}
+.reel-foot{margin-top:18px}
+@media (max-width:640px){.panel{height:clamp(400px,calc(100svh - 330px),620px)}}
+
+/* ===== v7: slower, smoother motion ===== */
+.curtain.soft{clip-path:none!important;background:var(--sky-deep);
+  -webkit-mask-image:linear-gradient(to top,transparent 0%,transparent 33.33%,#000 66.67%,#000 100%);mask-image:linear-gradient(to top,transparent 0%,transparent 33.33%,#000 66.67%,#000 100%);
+  -webkit-mask-size:100% 300%;mask-size:100% 300%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0%;mask-position:0 0%}
+.reel.gliding{scroll-snap-type:none}
+#work:not([hidden]) .workhead h1 .ch{animation-duration:1.3s;animation-delay:calc(.3s + var(--i) * .08s)}
+@keyframes reelin{from{translate:260px 0;opacity:0}}
+#work:not([hidden]) .panel{animation:reelin 1.7s cubic-bezier(.22,1,.36,1) backwards;animation-delay:calc(.55s + var(--i) * .14s)}
+.panel{transition:transform 1.1s cubic-bezier(.22,1,.36,1),opacity 1.1s ease}
+/* keep what's next in the dark until it's in front */
+.panel:not(.blueprint) img{transition:transform 1.2s cubic-bezier(.22,1,.36,1),filter 1.2s ease}
+.panel:not(.on):not(.blueprint){--pbr:.32;--psa:.3}
+.panel:not(.on):not(.blueprint) img{filter:brightness(var(--pbr)) saturate(var(--psa)) blur(3px)}
+.panel.blueprint img{transition:transform 1.2s cubic-bezier(.22,1,.36,1),opacity 1.2s ease}
+.panel.blueprint:not(.on) img{opacity:.18}
+.panel.soon .soon-art{transition:opacity 1.2s ease}
+.panel.soon:not(.on) .soon-art{opacity:.22}
+.panel-body > *{transition:transform 1.1s cubic-bezier(.22,1,.36,1),opacity .9s ease,clip-path 1.1s cubic-bezier(.22,1,.36,1),filter .9s ease}
+.panel:not(.on) .panel-body > *{opacity:0;transform:translateY(36px);filter:blur(6px);transition-duration:.45s,.35s,.45s,.35s;transition-delay:0s}
+.panel.on .panel-body > *:nth-child(1){transition-delay:.45s}
+.panel.on .panel-body > *:nth-child(2){transition-delay:.6s}
+.panel.on .panel-body > *:nth-child(3){transition-delay:.75s}
+.panel.on .panel-body > *:nth-child(4){transition-delay:.9s}
+.reel-track i{transition:transform 1.1s cubic-bezier(.22,1,.36,1)}
+@media (prefers-reduced-motion:reduce){.panel:not(.on) .panel-body > *{filter:none}}
+
+/* ===== v8: page slides up over the current one ===== */
+.view.in-transit{position:fixed!important;top:0;left:0;right:0;height:100vh;margin:0!important;width:auto!important;overflow:hidden;z-index:35;
+  box-shadow:0 -40px 80px rgba(2,6,16,.5);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--edge,240px),#000 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 var(--edge,240px),#000 100%);
+  -webkit-mask-size:100% calc(100% + var(--edge,240px));mask-size:100% calc(100% + var(--edge,240px));-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+#work.in-transit{width:100vw!important}
+.view.in-transit{animation:none!important}
+#home:not([hidden]),#about-page:not([hidden]),#work:not([hidden]){animation:none}
+
+/* ===== v9 ===== */
+.page.in-transit{position:fixed!important;top:0;left:0;right:0;height:100vh;margin:0!important;overflow:hidden;z-index:35;background:var(--bg);
+  padding-inline:max(clamp(16px,4vw,40px),calc((100vw - 1160px) / 2));box-shadow:0 -40px 80px rgba(2,6,16,.45);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--edge,240px),#000 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 var(--edge,240px),#000 100%);
+  -webkit-mask-size:100% calc(100% + var(--edge,240px));mask-size:100% calc(100% + var(--edge,240px));-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:none!important}
+.credit{position:absolute;z-index:3;right:12px;top:12px;font-size:11.5px;font-weight:600;letter-spacing:.01em;color:rgba(255,255,255,.82);background:rgba(4,7,14,.45);padding:4px 9px;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);pointer-events:none}
+.phero .credit{top:auto;bottom:16px;right:clamp(16px,4vw,40px)}
+.cadpair .stand-real{grid-column:1/-1}
+.cadpair .stand-real img{aspect-ratio:auto;object-fit:cover;width:100%}
+.page:not([hidden]){animation:none}
+</style>
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#home">Srithvik Ellanki</a>
+    <nav class="navlinks" aria-label="Site">
+      <div class="nav-item" data-menu>
+        <a class="nav-link" href="#work" data-nav="work" aria-haspopup="true" aria-expanded="false">Work <span class="chev" aria-hidden="true"></span></a>
+        <div class="menu" id="work-menu">
+          <div class="menu-head"><span>Projects</span><a href="#work">See all</a></div>
+          <div id="menu-list"></div>
+        </div>
+      </div>
+      <div class="nav-item"><a class="nav-link" href="#about" data-nav="about">About</a></div>
+      <div class="nav-item nav-resume"><a class="nav-link" href="media/Srithvik_Ellanki_Resume.pdf" data-resume target="_blank" rel="noopener">Resume</a></div>
+      <div class="nav-item" data-menu>
+        <button class="nav-link" type="button" aria-haspopup="true" aria-expanded="false">Contact <span class="chev" aria-hidden="true"></span></button>
+        <div class="menu contact-menu">
+          <span class="email">Srithvik.work@gmail.com</span>
+          <div class="row">
+            <button class="copy" type="button" data-copy="Srithvik.work@gmail.com">Copy email</button>
+            <a class="btn btn-ghost btn-small" href="https://linkedin.com/in/srithvik-ellanki" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn btn-ghost btn-small" href="media/Srithvik_Ellanki_Resume.pdf" data-resume target="_blank" rel="noopener">Resume</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HOME: just me ================= -->
+<main class="view" id="home">
+  <section class="space" id="hero" aria-label="Introduction">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="space-inner">
+      <div>
+        <p class="kicker rise d1">Aerospace engineering, Florida Tech</p>
+        <h1 aria-label="Srithvik Ellanki"><span class="word" aria-hidden="true">Srithvik</span><span class="word" aria-hidden="true">Ellanki</span></h1>
+        <p class="pitch rise d3">I build rockets, satellite hardware, and the occasional test stand.</p>
+        <div class="actions rise d4">
+          <a class="btn launch" href="#work" data-magnet>See my work <span class="arrow" aria-hidden="true"><i></i></span></a>
+          <div class="hello" id="hello">
+            <button type="button" aria-expanded="false" aria-controls="hello-more">Say hello</button>
+            <div class="hello-more" id="hello-more"><div>
+              <span class="email">Srithvik.work@gmail.com</span>
+              <button class="copy" type="button" data-copy="Srithvik.work@gmail.com">Copy</button>
+              <a href="https://linkedin.com/in/srithvik-ellanki" target="_blank" rel="noopener">LinkedIn</a>
+            </div></div>
+          </div>
+        </div>
+        <div class="sub-actions rise d5">
+          <a class="btn btn-ghost btn-small" href="media/Srithvik_Ellanki_Resume.pdf" data-resume target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
+      <div class="portrait" id="portrait">
+        <img src="img/about-headshot.jpg" width="880" height="1100" alt="Portrait of Srithvik Ellanki in a white shirt and dark tie" fetchpriority="high">
+      </div>
+    </div>
+    <a class="to-about rise d6" href="#about"><span>About me</span><i aria-hidden="true"></i></a>
+  </section>
+</main>
+
+<!-- ================= ABOUT ================= -->
+<main class="view" id="about-page" hidden>
+
+  <div class="home-wrap">
+    <section class="about-sec" id="about" aria-labelledby="about-title">
+      <h2 class="statement" id="about-title" data-words>I like building things, breaking a few of them, and figuring out why.</h2>
+      <div class="about-grid">
+        <div>
+          <h3>What I like working on</h3>
+          <p>Give me a problem with real hardware attached and I'm happy for hours. I'd rather be in the shop than staring at slides, whether that's machining a part, wiring a board, or writing a quick script to make sense of a pile of test data.</p>
+          <p>Rockets are what got me hooked. These days I'm just as into what rides on top of them: small satellites, the frames that hold them together, and the code that keeps them pointed the right way.</p>
+          <p class="lately">Lately I've been into <span class="swap" id="swap"><span>small satellites</span></span></p>
+        </div>
+        <div>
+          <h3>Things I keep coming back to</h3>
+          <div class="chips">
+            <span>Rocket motors</span><span>CubeSats</span><span>Test stands</span><span>CAD</span><span>FEA</span><span>Python</span><span>MATLAB</span><span>Machining</span><span>Launch days</span>
+          </div>
+          <h3 style="margin-top:36px">Where I'm headed</h3>
+          <p>Long term, I want to work on things that actually leave the planet: engines, spacecraft, and the systems that keep them alive up there. Wherever that starts, I want to be close enough to the hardware to get my hands on it.</p>
+          <div class="quick"><span><b>B.S. Aerospace Engineering</b>, Astronautics</span><span>Graduating <b>May 2027</b></span><span><b>NAR Level 1</b> certified</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="off" aria-labelledby="off-title">
+      <div class="off-head">
+        <h3 id="off-title">Outside of engineering</h3>
+        <p>When I'm not building something, I'm usually outside.</p>
+      </div>
+      <div class="snaps">
+        <figure class="snap" data-focus="0.32,0.42" data-zoom="1.25">
+          <div class="snap-frame"><img class="bg" src="img/about-biking.jpg" alt="" loading="lazy"><img class="fg" src="img/about-biking.jpg" width="788" height="1400" loading="lazy" alt="Srithvik standing with his mountain bike on a trail beside a river"></div>
+          <figcaption><b>Mountain biking</b><span>Trails</span></figcaption>
+        </figure>
+        <figure class="snap" data-focus="0.6,0.42" data-zoom="1.5">
+          <div class="snap-frame"><img class="bg" src="img/about-tennis.jpg" alt="" loading="lazy"><img class="fg" src="img/about-tennis.jpg" width="1050" height="1400" loading="lazy" alt="Srithvik bouncing a tennis ball before a serve on a hard court"></div>
+          <figcaption><b>Tennis</b><span>Hard court</span></figcaption>
+        </figure>
+        <figure class="snap" data-focus="0.52,0.36" data-zoom="1.45">
+          <div class="snap-frame"><img class="bg" src="img/about-fishing.jpg" alt="" loading="lazy"><img class="fg" src="img/about-fishing.jpg" width="1400" height="1400" loading="lazy" alt="Srithvik smiling on a fishing pier holding a small fish"></div>
+          <figcaption><b>Fishing</b><span>Off the pier</span></figcaption>
+        </figure>
+        <figure class="snap" data-focus="0.61,0.5" data-zoom="2.6">
+          <div class="snap-frame"><img class="bg" src="img/about-soccer.jpg" alt="" loading="lazy"><img class="fg" src="img/about-soccer.jpg" width="1400" height="1050" loading="lazy" alt="Srithvik with a group of friends on a lit soccer field at night"></div>
+          <figcaption><b>Soccer</b><span>Under the lights</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="closer" aria-labelledby="closer-title">
+      <h2 id="closer-title">Now for the hardware.</h2>
+      <p>Rockets, a CubeSat, test stands, and the analysis behind them, each with its own page.</p>
+      <a class="btn launch" href="#work" data-magnet>Enter the work <span class="arrow" aria-hidden="true"><i></i></span></a>
+    </section>
+    <div class="homefoot"><span>Srithvik Ellanki</span><span>Melbourne, FL</span></div>
+  </div>
+</main>
+
+<div class="wrap">
+
+<!-- ================= WORK PAGE ================= -->
+<main class="view" id="work" hidden>
+  <div class="work-inner">
+    <div class="workhead">
+      <h1 aria-label="Work"><span class="word" aria-hidden="true">Work</span></h1>
+      <p>Rockets, a CubeSat, test stands, and the analysis behind them.</p>
+    </div>
+  </div>
+  <div class="reel" id="reel" tabindex="0" aria-label="Projects"></div>
+  <div class="work-inner">
+    <div class="reel-foot">
+      <span class="reel-count" aria-hidden="true"><span class="rc-n"><b id="rc-n">01</b></span><span class="rc-t" id="rc-t"></span></span>
+      <div class="reel-track" id="reel-track"><i></i></div>
+      <div class="reel-nav">
+        <button class="rbtn prev" type="button" aria-label="Previous project" data-reel="-1"><i></i></button>
+        <button class="rbtn next" type="button" aria-label="Next project" data-reel="1"><i></i></button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ================= PROJECT: PHANTOM 10K ================= -->
+<article class="page" id="phantom-10k" data-size="tall" data-order="2" data-tag="Propulsion" data-summary="Led propulsion on a reusable 2 inch K class solid motor, from design through seven static fires and flight." data-cover="img/phantom-sf-wide.jpg" data-pos="center 35%" data-fit="cover" data-tab="Phantom 10k" data-meta="Oct 2025">
+  <div class="phead">
+    <span class="lab">AIAA Panther Rocket Labs, Florida Tech</span>
+    <h2>Phantom 10k</h2>
+    <p class="sub">A reusable 2 inch K class solid rocket motor, designed, static fired, and flown.</p>
+  </div>
+
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">Propulsion Lead</span></div>
+    <div><span class="lab">Date</span><span class="v num">Oct 2025</span></div>
+    <div><span class="lab">Team</span><span class="v">AIAA Panther Rocket Labs</span></div>
+    <div><span class="lab">Tools</span><span class="v">OpenMotor, PROPEP, Inventor, MATLAB, CNC</span></div>
+  </div>
+
+  <figure class="hero">
+    <img width="1400" height="933" src="img/motor-assembled.jpg" fetchpriority="high" alt="Assembled Phantom 10k motor with fiberglass lip, carbon fiber case, pressure transducer lead and snap ring laid out on a work table">
+    <figcaption><b>Flight motor, assembled.</b> Carbon fiber case with bonded fiberglass coupler lip, forward closure with pressure transducer, and retaining snap ring.</figcaption>
+  </figure>
+
+  <div class="brief">
+    <div class="roles-list">
+      <h3>My role</h3>
+      <ul>
+        <li>Led the propulsion team through propellant formulation, grain geometry, nozzle design, and integration with the airframe.</li>
+        <li>Modeled internal ballistics, nozzle performance, and grain regression in OpenMotor and PROPEP.</li>
+        <li>Ran the hydrostatic and static fire campaign and compared predictions to measured pressure and thrust across 3 motor configurations.</li>
+        <li>Wrote the failure analysis for Static Fire #5 and set the bonding method used on the flight motor.</li>
+      </ul>
+    </div>
+    <div class="mods">
+      <div class="mod"><span class="lab">Class</span><span class="v">K521</span></div>
+      <div class="mod"><span class="lab">Total impulse</span><span class="v">348<small>lbf·s</small></span></div>
+      <div class="mod"><span class="lab">Delivered Isp</span><span class="v">208.6<small>s</small></span></div>
+      <div class="mod"><span class="lab">Burn time</span><span class="v">2.94<small>s</small></span></div>
+      <div class="mod"><span class="lab">Avg chamber pressure</span><span class="v">506<small>psi</small></span></div>
+      <div class="mod"><span class="lab">Propellant</span><span class="v">1.67<small>lb</small></span></div>
+      <p class="note">OpenMotor predictions. BATES grains, graphite conical nozzle, Cf 1.50 ideal and 1.34 delivered, 83.9% volume loading.</p>
+    </div>
+  </div>
+
+  <section class="sec">
+    <h3>Motor architecture</h3>
+    <figure>
+      <div class="cadplate"><img width="1400" height="209" src="img/motor-section-cad.jpg" loading="lazy" alt="Inventor cross section of the motor showing nozzle, phenolic liner, grain column, forward closure, and fiberglass lip"></div>
+      <figcaption><b>Inventor section view.</b> Aft to forward, left to right: graphite nozzle and snap ring, BATES grain column inside a phenolic liner, aluminum forward closure with transducer port, and the fiberglass coupler lip.</figcaption>
+    </figure>
+    <figure>
+      <div class="plate"><img width="1432" height="181" src="img/phantom-exploded-cad.jpg" loading="lazy" alt="Exploded CAD of the motor showing the fiberglass coupler, carbon fiber case, forward closure, phenolic liner, nozzle and retaining ring laid out in a line"></div>
+      <figcaption><b>Exploded assembly.</b> Five main components: graphite nozzle, carbon fiber and fiberglass case, APCP propellant in a phenolic liner, igniter, and aluminum forward closure. The nozzle is held by an internal retaining ring with a thrust ring to spread the load, and an epoxied internal tube at the forward end locates the closure and doubles as the airframe coupler.</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec">
+    <h3>Components <small>CAD next to the machined hardware</small></h3>
+    <div class="parts">
+      <div class="part">
+        <div class="pair"><img width="867" height="725" class="cad" src="img/nozzle-cad.jpg" loading="lazy" alt="Nozzle CAD"><img width="1400" height="933" src="img/nozzle-photo.jpg" loading="lazy" alt="Machined graphite nozzle with O-rings"></div>
+        <h4>Nozzle <span>Graphite, conical</span></h4>
+        <p>Single piece graphite with two O-ring seats. 75° converging half angle set by what the lathe could cut, throat near 0.47 in sized for roughly 500 psi chamber pressure, 1.08 in exit.</p>
+      </div>
+      <div class="part">
+        <div class="pair"><img width="1167" height="692" class="cad" src="img/forward-cad.jpg" loading="lazy" alt="Forward closure CAD"><img width="1400" height="933" src="img/forward-photo.jpg" loading="lazy" alt="Aluminum forward closure with pressure sensor being installed"></div>
+        <h4>Forward closure <span>6061 aluminum</span></h4>
+        <p>Machined in house with two 0.125 in O-rings and a phenolic heat shield disk. The pressure transducer threads into the center with a quarter inch air gap to keep it off the hot gas.</p>
+      </div>
+      <div class="part">
+        <div class="pair"><img width="915" height="753" class="cad" src="img/grain-cad.jpg" loading="lazy" alt="BATES grain CAD"><img width="1400" height="933" src="img/grain-photo.jpg" loading="lazy" alt="End view of a cast propellant grain in its liner"></div>
+        <h4>Propellant grains <span>BATES</span></h4>
+        <p>Three 3 in grains of the team's own formulation. BATES was chosen for simple casting, a flat thrust curve that avoids pressure spikes, and easy comparison against known motors.</p>
+      </div>
+      <div class="part">
+        <div class="pair"><img width="494" height="789" class="cad" src="img/liner-cad.jpg" loading="lazy" alt="Phenolic liner CAD"><img width="1400" height="933" src="img/liner-photo.jpg" loading="lazy" alt="Phenolic liner held by a team member"></div>
+        <h4>Thermal liner <span>Linen phenolic</span></h4>
+        <p>0.125 in wall, sized by preliminary simulation and confirmed on the stand. Static fires showed little to no regression, and epoxy bonding outlasted RTV, which cracked late in the burn.</p>
+      </div>
+      <div class="part">
+        <div class="pair solo"><img width="1117" height="750" src="img/lip-cad.jpg" loading="lazy" alt="Fiberglass coupler lip CAD"></div>
+        <h4>Case and coupler <span>Carbon fiber</span></h4>
+        <p>Stock carbon fiber tube with a machined snap ring groove, rated to 1000 psi at a 1.1 factor of safety. A 2 in fiberglass lip is epoxied over 1.85 in of the case to couple the airframe.</p>
+      </div>
+      <div class="part">
+        <div class="pair solo"><img width="878" height="707" src="img/snapring-cad.jpg" loading="lazy" alt="Snap ring CAD"></div>
+        <h4>Retention <span>Snap ring</span></h4>
+        <p>A snap ring was picked over radial pins because it needs less case wall and leaves more room for a thicker, stronger nozzle. A steel washer spreads the load on larger builds.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Propellant</h3>
+    <div class="two">
+      <div class="stack">
+        <p style="font-size:16px;max-width:60ch">An aluminized APCP mixed by the team: a bimodal ammonium perchlorate blend of 90 and 200 micron particles in an HTPB binder cured with MDI.</p>
+        <div class="mods">
+          <div class="mod"><span class="lab">Flame temperature</span><span class="v">2779<small>K</small></span></div>
+          <div class="mod"><span class="lab">At chamber pressure</span><span class="v">600<small>psi</small></span></div>
+          <div class="mod"><span class="lab">TNT equivalence</span><span class="v">0.5358<small>kg/kg</small></span></div>
+        </div>
+      </div>
+      <div class="tablewrap">
+        <table class="dt compact">
+          <thead><tr><th>Constituent</th><th style="text-align:right">Mass fraction, %</th></tr></thead>
+          <tbody>
+            <tr><td>AP, 200 micron</td><td class="num" style="text-align:right">65.5</td></tr>
+            <tr><td>HTPB binder</td><td class="num" style="text-align:right">10.883</td></tr>
+            <tr><td>AP, 90 micron</td><td class="num" style="text-align:right">9.5</td></tr>
+            <tr><td>Aluminum powder</td><td class="num" style="text-align:right">7.5</td></tr>
+            <tr><td>IDP plasticizer</td><td class="num" style="text-align:right">4.275</td></tr>
+            <tr><td>MDI curative</td><td class="num" style="text-align:right">1.942</td></tr>
+            <tr><td>Castor oil</td><td class="num" style="text-align:right">0.3</td></tr>
+            <tr><td>PDMS</td><td class="num" style="text-align:right">0.05</td></tr>
+            <tr><td>Triton X100</td><td class="num" style="text-align:right">0.05</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Analysis</h3>
+    <div class="two">
+      <figure>
+        <div class="plate"><img width="652" height="578" src="img/thrust-curve.jpg" loading="lazy" alt="OpenMotor plot of Kn, chamber pressure in psi, and thrust in lbf over a 2.94 second burn"></div>
+        <figcaption><b>OpenMotor burn prediction.</b> Chamber pressure, Kn, and thrust over the 2.94 s burn. Progressive BATES profile peaking near 640 psi before burnout.</figcaption>
+      </figure>
+      <div class="stack">
+        <div class="eq">
+          <span class="lab">Chamber pressure, steady state</span>
+          <span>P₀ = [ K<sub>n</sub> · a · ρ<sub>p</sub> · c* ]<sup>1/(1−n)</sup></span>
+          <span>K<sub>n</sub> = A<sub>b</sub> / A*</span>
+        </div>
+        <div class="eq">
+          <span class="lab">Thrust and specific impulse</span>
+          <span>F = P₀ · A* · C<sub>F</sub></span>
+          <span>I<sub>sp</sub> = c* · C<sub>F</sub> / g₀</span>
+        </div>
+        <figure>
+          <img width="924" height="165" src="img/motor-stats.jpg" loading="lazy" alt="OpenMotor motor statistics table">
+          <figcaption><b>OpenMotor summary.</b> Full predicted statistics for the flight configuration.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Design decisions</h3>
+    <div class="rows">
+      <div><b>BATES over rod and tube</b><p>Rod and tube needs a multistep assembly and a centered core that is hard to hold during the burn. BATES casts in one step and has no thin, brittle features to break in transport.</p></div>
+      <div><b>Conical over parabolic</b><p>At 2 in scale the efficiency gain from a contoured bell was too small to justify the machining. OpenMotor showed a 15° divergence was optimal; the flight nozzle kept 30° due to shop lead time.</p></div>
+      <div><b>One piece graphite</b><p>Loads at this scale allowed solid graphite instead of a phenolic and graphite assembly. Testing showed it was less brittle than expected, and it is easy to swap between firings.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Static fire</h3>
+    <div class="media">
+      <figure>
+        <video controls playsinline muted preload="metadata" poster="img/phantom-sf-poster.jpg">
+          <source src="media/phantom-static-fire.mp4" type="video/mp4">
+        </video>
+        <figcaption><b>Static fire compilation.</b> Ignition through tail off, slowed to 25% speed.</figcaption>
+      </figure>
+      <div class="duo">
+        <figure><img width="1120" height="1400" src="img/phantom-sf-wide.jpg" loading="lazy" alt="Motor firing vertically on the red test stand with the team watching from the command tents"><figcaption><b>Full burn.</b> Motor firing nozzle up on the test stand, crew at the command tents.</figcaption></figure>
+        <figure><img width="933" height="1400" src="img/phantom-sf-close.jpg" loading="lazy" alt="Close up of the exhaust plume leaving the motor at the stand retention plate"><figcaption><b>Close up.</b> Exhaust at the aft closure, held by the stand retention rods.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Test stand and range safety <small>How every static fire was run</small></h3>
+    <div class="two lw">
+      <div class="prose" style="font-size:16px">
+        <p>The motor fires nozzle up into a welded square steel base topped with a steel plate. A 6061 aluminum extrusion frame, joined with 90° brackets, carries motor stabilizers that slide along the frame to align and clamp the case.</p>
+        <p>The forward coupler drops into a motor coupling threaded onto a load cell and pinned through its housing, so thrust goes straight down into the load cell. Chamber pressure is read through the forward closure port and logged on an Altus Metrum EasyMini.</p>
+        <p>A static fire passes only if the motor shows no deformation or gas leakage during or after the burn. Afterward the nozzle throat is checked for cracking and erosion, the liner for uneven regression, and the forward closure and insulating disc for damage.</p>
+        <figure class="stand-real" style="margin-top:28px"><img width="672" height="392" src="img/phantom-stand-real.jpg" loading="lazy" alt="The real static fire stand on test day: red aluminum extrusion frame on the steel base, with the carbon fiber motor held nozzle up between threaded retention rods while it fires"><figcaption><b>The real stand.</b> The built stand on test day, motor clamped nozzle up between the retention rods mid burn.</figcaption></figure>
+      </div>
+      <div class="cadpair">
+        <figure class="plate"><img width="599" height="639" src="img/phantom-stand-cad.jpg" loading="lazy" alt="CAD of the static fire stand with red aluminum extrusion frame on a black steel base, motor mounted vertically in the center"><figcaption><b>Static fire stand.</b> Extrusion frame on a welded steel base.</figcaption></figure>
+        <figure class="plate"><img width="707" height="875" src="img/phantom-loadcell-cad.jpg" loading="lazy" alt="Exploded CAD of the motor coupling, load cell and load cell housing on the stand base plate"><figcaption><b>Load path.</b> Motor coupling, load cell, and housing, exploded.</figcaption></figure>
+      </div>
+    </div>
+    <div class="two">
+      <figure class="plate"><img width="1600" height="946" src="img/phantom-site-plan.jpg" loading="lazy" alt="Aerial site plan of the test lot with a 50 ft exclusion zone around the stand, coned off area, spotter positions, hold zone and test control area"><figcaption><b>Test site plan.</b> 50 ft exclusion zone around the stand, coned off perimeter, radio spotters, a mandatory hold zone, and a separate test control area.</figcaption></figure>
+      <figure class="plate"><img width="611" height="458" src="img/phantom-standoff-plot.jpg" loading="lazy" alt="Plot of standoff distance in feet against weight of propellant in pounds, rising from 40 ft toward about 234 ft at 200 lb"><figcaption><b>Standoff distance.</b> D = K · W<sup>1/3</sup> with K = 40, per Defense Explosive Safety Regulation 6055.</figcaption></figure>
+    </div>
+    <div class="rows">
+      <div><b>Governing codes</b><p>Static fires followed NFPA 1125, NFPA 1127, DESR 6055 for standoff, and Florida Tech's Explosive Safety Plan, with a range operations and safety officer overseeing the day.</p></div>
+      <div><b>Briefing and training</b><p>A safety briefing is read aloud before setup. Anyone handling hardware needs current HSI training, including HSDC and rocket motor handling; everyone else watches from the spectator zone.</p></div>
+      <div><b>Igniter discipline</b><p>Propellant, motors, and igniters live in the explosive magazine. Igniters go in at the last possible moment and stay shorted until the motor is integrated on the stand.</p></div>
+      <div><b>Firing and safing</b><p>Everyone stays behind the perimeter for a 5 second countdown, the controller key comes out if anyone crosses it, and no one approaches until 1 minute after the controller is powered off.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Test campaign <small>2 hydrostatic tests, 7 static fires, 1 flight</small></h3>
+    <ol class="timeline">
+      <li class="bad"><span class="node"></span><span class="t">Hydrostatic #1</span><p>Designed for 1500 psi. Snap ring was not fully seated and the aft end of the case sheared off. Seating check added to the assembly procedure.</p><span class="state">Anomaly</span></li>
+      <li class="ok"><span class="node"></span><span class="t">Hydrostatic #2</span><p>Case held pressure as designed with the corrected assembly.</p><span class="state">Pass</span></li>
+      <li class="ok"><span class="node"></span><span class="t">Static Fires #1 to #4</span><p>Four static fires of the test motor, each with no case deformation or gas leakage.</p><span class="state">Pass</span></li>
+      <li class="bad"><span class="node"></span><span class="t">Static Fire #5</span><p>Removed the plastic grain sleeve and bonded grains straight to the liner with epoxy. Case ruptured at the snap ring groove. See the failure analysis below.</p><span class="state">Failure</span></li>
+      <li class="ok"><span class="node"></span><span class="t">Static Fire #6</span><p>Four grain motor. Peak pressure 700 psi, slightly above prediction. Clean pressure and load cell curves, no hardware damage. Plastic sleeve melted and partly clogged the nozzle.</p><span class="state">Pass</span></li>
+      <li class="ok"><span class="node"></span><span class="t">Static Fire #7</span><p>Completed with no case deformation or gas leakage.</p><span class="state">Pass</span></li>
+      <li class="ok flight"><span class="node"></span><span class="t">Flight</span><p>Three grain flight motor flew nominally and was recovered with only cosmetic scratches on the case exterior. Interior and liner were undamaged and the hardware is reusable after cleaning.</p><span class="state">Success</span></li>
+    </ol>
+    <p class="muted" style="font-size:14.5px;max-width:72ch">The carbon fiber case survived every static fire with no external damage across 8.5, 11.5, and 14.5 in test lengths before the 17.5 in flight case.</p>
+  </section>
+
+  <section class="sec">
+    <h3>Failure analysis <small>Static Fire #5</small></h3>
+    <div class="failure">
+      <figure>
+        <img width="769" height="1400" src="img/sf5-rupture.jpg" loading="lazy" alt="Still from test video showing debris ejected upward from the static fire stand">
+        <figcaption><b>Test video still.</b> Aft closure and liner ejected upward from the stand.</figcaption>
+      </figure>
+      <dl>
+        <div><dt>What happened</dt><dd>Chamber pressure rose far faster than the case rating and the case failed at the snap ring groove, launching the liner and nozzle hardware.</dd></div>
+        <div><dt class="cause">Root cause</dt><dd>Recovered grains showed backside burning. The epoxy bond burned faster than the propellant, flame got behind the grains, burning area jumped, and pressure spiked. The grains were found outside the liner, consistent with the bond failing first.</dd></div>
+        <div><dt>Corrective action</dt><dd>No direct epoxy bond between grain and liner. The flight motor uses grains in their ABS sleeve, epoxied into the phenolic liner, which gives a barrier against backside burning while keeping the stronger epoxy bond.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Results and takeaways</h3>
+    <ul class="ticks">
+      <li>Flight motor ignited cleanly, flew nominally, and came back reusable with no internal damage.</li>
+      <li>Phenolic liner showed no cracking or bending after flight, an improvement over the static fire motors.</li>
+      <li>Onboard pressure data was invalid (it implied Mach 22.9), so the next build needs a transducer bench check and flight data validation step.</li>
+      <li>Next iteration: cut the 15° diverging section found in optimization and characterize the new propellant batch to tighten the pressure prediction.</li>
+    </ul>
+  </section>
+</article>
+
+<!-- ================= PROJECT: AURELIAN ================= -->
+<article class="page" id="aurelian" data-size="one" data-order="3" data-tag="Liquid propulsion, test" data-summary="Safety coordinator and test stand designer for a nitrous oxide bipropellant liquid rocket build." data-cover="img/aurelian-halfcat.jpg" data-pos="center 55%" data-fit="cover" data-credit="Photo: Half Cat Rocketry" data-tab="Project Aurelian" data-meta="2025 to 2026" hidden>
+  <div class="phead">
+    <span class="lab">Student liquid rocket program, 7 person team</span>
+    <h2>Project Aurelian</h2>
+    <p class="sub">A team build of the Mojave Sphinx nitrous oxide bipropellant rocket, from manufacturing through static fire.</p>
+  </div>
+
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">Safety Coordinator, Test Stand Design</span></div>
+    <div><span class="lab">Date</span><span class="v num">2025 to 2026</span></div>
+    <div><span class="lab">Team</span><span class="v">7 person student team</span></div>
+    <div><span class="lab">Tools</span><span class="v">Fusion, Ansys, CNC, Strut framing</span></div>
+  </div>
+
+  <div class="mods six" style="margin-top:28px">
+    <div class="mod"><span class="lab">Max thrust</span><span class="v">360<small>lbf</small></span></div>
+    <div class="mod"><span class="lab">Burn</span><span class="v">~5<small>s</small></span></div>
+    <div class="mod"><span class="lab">Tank</span><span class="v">4<small>in OD</small></span></div>
+    <div class="mod"><span class="lab">Stand FS</span><span class="v">≥ 2</span></div>
+    <div class="mod"><span class="lab">Standoff</span><span class="v">500<small>ft</small></span></div>
+    <div class="mod"><span class="lab">Stand cost</span><span class="v">$335<small>to 490</small></span></div>
+    <p class="note">Self pressurized N₂O with a floating fuel piston, nozzle down flight configuration, L class safe distance table.</p>
+  </div>
+
+  <div class="deliverable">
+    <div class="prose">
+      <span class="lab">Featured deliverable, document MS-TS-001 Rev B</span>
+      <h3>Static fire test stand</h3>
+      <p>A complete design package for firing the vehicle on private land with no bunkers, pre built stands, or supervising pyro operator. Every protection a test range provides had to be replaced with structure, distance, and procedure.</p>
+    </div>
+    <figure class="plate"><img width="1010" height="615" src="img/stand-trade-ab.jpg" alt="Comparison of a hanging mast stand and an A-frame gantry stand"></figure>
+  </div>
+
+  <section class="sec">
+    <h3>Program structure</h3>
+    <p class="prose" style="font-size:16.5px">The team runs like a small engine shop: six owned roles, each with a defined Go/No-Go responsibility on test day, and a three phase deliverable plan that gates manufacturing, test development, and assembly.</p>
+    <div class="team">
+      <div><b>Project Manager</b><p>Schedule, budget, procurement, manufacturing tracking</p></div>
+      <div><b>Lead Engineer</b><p>Architecture, interfaces, configuration control, technical Go/No-Go</p></div>
+      <div><b>Propulsion</b><p>Injector, chamber, nozzle, igniter, feed analysis, mixture ratio</p></div>
+      <div><b>Structures and Mfg</b><p>Vehicle and tank structure, test stand, drawings, machining</p></div>
+      <div><b>Test and GSE</b><p>Fill, vent, purge, test procedures, hazard analysis, abort authority</p></div>
+      <div><b>Avionics</b><p>Instrumentation, DAQ, valve actuation, ignition logic</p></div>
+    </div>
+    <div class="tablewrap">
+      <table class="dt phases">
+        <thead><tr><th>Phase</th><th>Key deliverables</th></tr></thead>
+        <tbody>
+          <tr><td>1. Manufacturing</td><td>Interface map, injector design, pressure vessel verification package, all machined parts, preliminary test stand, instrumentation plan</td></tr>
+          <tr><td>2. Test development</td><td>Plumbing diagram, leak check plan, test stand design and FEA, GSE plumbing, hazard analysis, range safety plan, DAQ design, sensor calibration</td></tr>
+          <tr><td>3. Assembly</td><td>Assembled engine and mounting interface, engine and tank mounts, restraint system, installed instrumentation, wired valve control</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Requirements</h3>
+    <div class="tablewrap">
+      <table class="dt">
+        <thead><tr><th>ID</th><th>Requirement</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td class="id">R1</td><td>Tank mostly vertical, aft end down, since oxidizer drains from the aft end</td><td>HCR-5100 App. A</td></tr>
+          <tr><td class="id">R2</td><td>One degree of freedom only: axial motion into the load cell</td><td>HCR-5100 App. A</td></tr>
+          <tr><td class="id">R3</td><td>Fire vertically; motor axis never points toward people</td><td>TRA 10-7</td></tr>
+          <tr><td class="id">R4</td><td>React 360 lbf with FS ≥ 2 on anchorage and primary members</td><td>HCR-5100 Tbl 2.6</td></tr>
+          <tr><td class="id">R5</td><td>Free standing on unimproved ground; resist uplift and overturning</td><td>Site</td></tr>
+          <tr><td class="id">R6</td><td>50 ft diameter circle cleared of all flammables</td><td>TRA 7-13.2</td></tr>
+          <tr><td class="id">R7</td><td>Survive direct exhaust impingement over a multi test campaign</td><td>HCR-5100 §3.2</td></tr>
+          <tr><td class="id">R8</td><td>Reusable, transportable in a pickup or SUV, low cost</td><td>Project</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Architecture trade</h3>
+    <div class="prose" style="font-size:16.5px">
+      <p><b>Selected: braced hanging mast.</b> The rocket hangs beside a single strut channel mast and pushes up into an S-type load cell, exactly as it flies. It was the cheapest option and the most accurate.</p>
+      <p>The A-frame gantry measures thrust the same way, so it buys no accuracy while roughly doubling steel and anchors. It is kept as the backup for very soft soil.</p>
+      <p>Accuracy comes from the load path. The pre fire state is pure tension for a clean tare, the fired state is pure compression, and the printed guide cradles carry almost no normal load, so friction never enters the measurement.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Variant A: anchored mast <small>Baseline</small></h3>
+    <div class="two lw">
+      <figure class="plate"><img width="1600" height="1469" src="img/stand-variant-a.jpg" loading="lazy" alt="Side view of the anchored hanging mast stand with labeled materials and load path"><figcaption><b>Side view and load path.</b> Thrust → retaining ring → spacer block → load cell → crossbar → mast → braces → earth anchors.</figcaption></figure>
+      <div class="stack">
+        <span class="lab">Structural margins at 360 lbf, 110 °F day</span>
+        <div class="fs" role="table" aria-label="Factor of safety by element">
+          <div class="fsrow" role="row"><span role="cell">Anchorage uplift</span><span class="bar"><i style="width:70%"></i></span><b role="cell">&gt;7</b></div>
+          <div class="fsrow" role="row"><span role="cell">Bolted joints</span><span class="bar"><i style="width:100%"></i></span><b role="cell">&gt;10</b></div>
+          <div class="fsrow" role="row"><span role="cell">Brace axial</span><span class="bar"><i style="width:50%"></i></span><b role="cell">&gt;5</b></div>
+          <div class="fsrow" role="row"><span role="cell">Mast bending</span><span class="bar"><i style="width:25%"></i></span><b role="cell">2.5 to 3</b></div>
+          <div class="fsrow" role="row"><span role="cell">Crossbar bending</span><span class="bar"><i style="width:22%"></i></span><b role="cell">2.2 to 2.8</b></div>
+          <div class="fsrow" role="row"><span role="cell">Load cell (rated)</span><span class="bar"><i class="lo" style="width:17%"></i></span><b role="cell">1.7</b></div>
+          <div class="fsaxis" aria-hidden="true"><span></span><span><em>FS 2 min</em></span><span></span></div>
+        </div>
+        <p style="font-size:15px">The 4.5 in offset between rocket and mast puts about 1,620 in·lb on the mast, which is why the two orthogonal braces exist. The load cell is checked against its 660 lbf rating rather than the structural FS, with 150 to 200% overload capacity behind it.</p>
+        <p style="font-size:15px"><b>Foundation:</b> four 30 in screw in earth anchors, each proof pulled to 300 lbf with a come along and crane scale. Proof pulling turns unknown soil into a measured number.</p>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table class="dt">
+        <thead><tr><th>Element</th><th>Specification</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Mast, crossbar, braces</td><td>1-5/8 in 12 ga galvanized strut channel, three 10 ft sticks</td><td>Published load tables, no welding, near zero cut waste</td></tr>
+          <tr><td>Flame deflector</td><td>1/8 in 304 stainless, 12 × 24 in, bent 40 to 45°</td><td>Takes repeated impingement without warping</td></tr>
+          <tr><td>Load cell</td><td>S-type 300 kg (660 lbf), HX711 amplifier</td><td>Tension and compression in one part, ~1.8× margin</td></tr>
+          <tr><td>Rocket cradles</td><td>3D printed PETG, 6 perimeters, 40% infill</td><td>Guide only; thrust is axial into the crossbar</td></tr>
+          <tr><td>Joints</td><td>1/2 in Grade 5 bolts, strut spring nuts, gussets</td><td>Shear capacity far above demand</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Variant B: ballasted mast <small>No ground penetration</small></h3>
+    <div class="two lw">
+      <figure class="plate"><img width="1600" height="962" src="img/stand-variant-b.jpg" loading="lazy" alt="Ballasted stand variant with two water drums strapped to a base frame"></figure>
+      <div class="stack">
+        <p style="font-size:15.5px">Same upper structure, new foundation, for rock, hardpan, or land where digging is not allowed. A 4 × 4 ft strut frame carries two 55 gal water drums that ship empty and double as the fire reserve. Ballast weight is measured, never estimated.</p>
+        <div class="tablewrap">
+          <table class="dt compact">
+            <thead><tr><th>Check</th><th>Demand</th><th>Provided</th><th>FS</th></tr></thead>
+            <tbody>
+              <tr><td>Uplift</td><td class="num">720 lb</td><td class="num">~1,035 lb</td><td class="num">2.9</td></tr>
+              <tr><td>Overturning</td><td class="num">2,200 in·lb</td><td class="num">24,800 in·lb</td><td class="num">&gt;10</td></tr>
+              <tr><td>Sliding</td><td class="num">&lt;30 lbf</td><td class="num">~400 lbf</td><td class="num">&gt;10</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:15px">Both variants share every part above the base, so the team can convert between them for under $150.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Site safety plan</h3>
+    <figure class="plate"><img width="1600" height="865" src="img/stand-site-layout.jpg" loading="lazy" alt="Plan view of the test site with 500 ft standoff, 50 ft cleared circle, GSE box, bottles, camera and extinguisher"><figcaption><b>Site layout, plan view.</b> 500 ft standoff in every direction and a 50 ft cleared circle around the stand.</figcaption></figure>
+    <div class="rows">
+      <div><b>Distance replaces concrete</b><p>With no bunkers, the stricter 500 ft L class distance was adopted over the 300 ft TRA minimum, for everyone, whenever N₂O is out of the bottle.</p></div>
+      <div><b>One Test Conductor</b><p>A single named person holds final abort authority and runs the inspection and prerequisite checklists aloud, with a second person initialing each item.</p></div>
+      <div><b>Pre fire inspection</b><p>Every test day: bolts witness marked, anchors re pulled after rain, cradles and deflector checked, load cell verified against a known weight.</p></div>
+    </div>
+  </section>
+</article>
+
+<!-- ================= PROJECT: L1 ROCKET (GOLDEN ROSE) ================= -->
+<article class="page" id="golden-rose" data-size="tall" data-order="5" data-tag="Flight" data-summary="Built and flew a high power rocket on an H class motor to 2,000 ft for NAR Level 1 certification." data-cover="img/l1-golden-rose.jpg" data-pos="center 30%" data-fit="cover" data-tab="L1 Rocket" data-meta="NAR Level 1" hidden>
+  <div class="phead">
+    <span class="lab">High power certification</span>
+    <h2>L1 Rocket</h2>
+    <p class="sub">My NAR Level 1 high power certification flight on an H class motor.</p>
+  </div>
+
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">Builder and flyer</span></div>
+    <div><span class="lab">Certification</span><span class="v">NAR Level 1</span></div>
+    <div><span class="lab">Motor</span><span class="v">H class</span></div>
+    <div><span class="lab">Vehicle</span><span class="v">Golden Rose, single stage</span></div>
+  </div>
+
+  <div class="l1">
+    <figure>
+      <img width="788" height="1400" src="img/l1-golden-rose.jpg" alt="Srithvik holding the red Golden Rose rocket with a gold nose cone at the launch field">
+      <figcaption><b>Recovered after the certification flight.</b> Red airframe with a gold nose cone.</figcaption>
+    </figure>
+    <div class="stack" style="gap:22px">
+      <div class="prose" style="font-size:17px">
+        <p>This is the single stage rocket, named Golden Rose, that I built and flew to earn National Association of Rocketry Level 1 high power certification. It flew on an H class motor to an apogee of 2,000 ft, deployed its recovery system cleanly, and was recovered intact.</p>
+        <p>It was my first hands on build of a full high power vehicle: airframe, fin alignment, motor retention, recovery packing, and pre flight stability checks.</p>
+      </div>
+      <div class="kv">
+        <div><span class="k">Certification</span><span class="v">NAR Level 1</span></div>
+        <div><span class="k">Motor</span><span class="v">H class</span></div>
+        <div><span class="k">Apogee</span><span class="v num">2,000 ft</span></div>
+        <div><span class="k">Recovery</span><span class="v">Recovered intact</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ================= PROJECT: RICE CAMP ================= -->
+<article class="page" id="rice-camp" data-size="xl" data-order="6" data-tag="Teaching" data-summary="Taught high school students aerospace engineering through rockets, drones, and weather balloons." data-cover="img/rice-bottle-launch.jpg" data-pos="center 40%" data-fit="cover" data-tab="Rice Aerospace Camp" data-meta="Instructor, Jul 2026" hidden>
+  <div class="phead">
+    <span class="lab">Rice University, Houston, TX. Envision by WorldStrides</span>
+    <h2>Aerospace Engineering Camp at Rice University</h2>
+    <p class="sub">Teaching high school students aerospace engineering through rockets, drones, and high altitude balloons.</p>
+  </div>
+
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">Instructor</span></div>
+    <div><span class="lab">Date</span><span class="v num">July 2026</span></div>
+    <div><span class="lab">Location</span><span class="v">Rice University, Houston</span></div>
+    <div><span class="lab">Students</span><span class="v">High school</span></div>
+  </div>
+
+  <figure class="hero">
+    <img width="1600" height="1067" src="img/rice-bottle-launch.jpg" alt="Srithvik launching a water bottle rocket on the Rice quad as students watch" style="object-position:center 35%">
+    <figcaption><b>Launch day on the quad.</b> Releasing a student water rocket while the class tracks the flight.</figcaption>
+  </figure>
+
+  <div class="prose" style="margin-top:36px;font-size:17px">
+    <p>I served as an instructor for a summer aerospace engineering program hosted on the Rice University campus. The camp paired short classroom sessions with hands on builds, so each concept students learned was tested the same day on something that flies.</p>
+    <p>Across the week, students launched water rockets, wired and flew drones with their own flight computers, sent weather balloons to high altitude, and toured Space Center Houston.</p>
+  </div>
+
+  <section class="module">
+    <div class="mtext">
+      <span class="lab">Propulsion</span>
+      <h3>Water bottle rockets</h3>
+      <p>Students designed and built pressurized water rockets, then flew them on the quad. Each launch was a quick lesson in thrust, stability, and why fin placement matters, and I ran the launches and walked teams through what their flights showed.</p>
+    </div>
+    <div class="mgrid">
+      <figure><video controls playsinline muted preload="metadata" poster="img/rice-poster.jpg"><source src="media/rice-bottle-rocket.mp4" type="video/mp4"></video><figcaption><b>Flight video.</b> A student rocket climbing over campus.</figcaption></figure>
+      <figure><img width="1600" height="1067" class="sq" src="img/rice-teaching.jpg" loading="lazy" alt="Srithvik teaching a group of students from the camp handbook"><figcaption><b>In the classroom.</b> Walking students through the day's material before the build.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="module">
+    <div class="mtext">
+      <span class="lab">Avionics</span>
+      <h3>Drone flight computers</h3>
+      <p>Teams wired and programmed a small flight computer, then used it to fly a drone indoors. I worked table to table helping debug wiring and code until each team's drone was in the air.</p>
+    </div>
+    <div class="mgrid">
+      <figure class="span2"><img width="1600" height="1067" class="land" src="img/rice-drone-wiring.jpg" loading="lazy" alt="Three students in safety glasses wiring a flight computer to a laptop"><figcaption><b>Bring up.</b> Students connecting their flight computer before the first test flight.</figcaption></figure>
+      <figure><img width="1600" height="1067" class="land" src="img/rice-drone-help.jpg" loading="lazy" alt="Srithvik helping a student with a flight computer board at a table"><figcaption><b>Debugging.</b> Working through a board issue with a student team.</figcaption></figure>
+      <figure><img width="1066" height="1600" class="land" src="img/rice-drone-flight.jpg" loading="lazy" alt="Students watching their drone fly in a lecture hall"><figcaption><b>First flight.</b> A team's drone airborne in the lecture hall.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="module">
+    <div class="mtext">
+      <span class="lab">Near space</span>
+      <h3>Weather balloon launch</h3>
+      <p>Students prepared payloads and released high altitude weather balloons, then tracked them as they climbed out of sight. It tied the week together: a real flight, a real payload, and a recovery plan.</p>
+    </div>
+    <div class="mgrid">
+      <figure><img width="1065" height="1600" class="tall" src="img/rice-balloon-release.jpg" loading="lazy" alt="Weather balloon with payload rising above a crowd of students"><figcaption><b>Release.</b> Balloon and payload train lifting off.</figcaption></figure>
+      <div class="stack" style="gap:12px">
+        <figure><img width="1600" height="1200" class="land" src="img/rice-balloon-prep.jpg" loading="lazy" alt="Two inflated weather balloons being prepared on a launch tarp"><figcaption><b>Fill and prep.</b> Balloons inflated and payloads staged.</figcaption></figure>
+        <figure><img width="1600" height="1067" class="land" src="img/rice-balloon-tracking.jpg" loading="lazy" alt="Students pointing up at the rising balloon"><figcaption><b>Tracking.</b> Students following the balloon as it climbs.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>The week at Rice</h3>
+    <div class="gallery">
+      <figure class="g-wide"><img width="1600" height="1067" style="object-position:center 85%" src="img/rice-lovett.jpg" loading="lazy" alt="Camp group in front of Lovett Hall at Rice University"><figcaption><b>Lovett Hall.</b> The camp group on the Rice academic quad.</figcaption></figure>
+      <figure class="g-tall"><img width="1066" height="1600" src="img/rice-rocket-park.jpg" loading="lazy" alt="Srithvik leading students past a rocket engine cluster display"><figcaption><b>Space Center Houston.</b> Leading the group through the rocket park.</figcaption></figure>
+      <figure><img width="1600" height="1067" src="img/rice-space-center.jpg" loading="lazy" alt="Camp group posed in front of a shuttle model at Space Center Houston"><figcaption><b>Field trip.</b> The group inside Space Center Houston.</figcaption></figure>
+      <figure><img width="1600" height="900" src="img/rice-group-letters.jpg" loading="lazy" alt="Camp group posed around the RICE letters"><figcaption><b>Camp group.</b> At the RICE letters on campus.</figcaption></figure>
+      <figure class="g-full"><img width="1600" height="900" src="img/rice-portrait.jpg" loading="lazy" alt="Srithvik standing between the R and C of the RICE letters"><figcaption><b>Instructor portrait.</b> On campus at Rice University.</figcaption></figure>
+    </div>
+  </section>
+</article>
+
+<!-- ================= PROJECT: CASE PIN CALCULATOR ================= -->
+<article class="page" id="pin-calculator" data-size="wide" data-order="4" data-tag="Structural analysis" data-summary="A MATLAB tool that sizes retention pins through a composite motor case against shear, bearing, and tension." data-cover="img/pin-cad.jpg" data-pos="center 40%" data-fit="cover" data-tab="Case Pin Calculator" data-meta="MATLAB tool" hidden>
+  <div class="phead">
+    <span class="lab">Structural analysis tool</span>
+    <h2>Motor Case Pin Calculator</h2>
+    <p class="sub">A MATLAB script I developed to size radial retention pins through a composite motor case, checking pin shear, bearing in the case wall, and net section tension at both closures.</p>
+  </div>
+
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">Developer</span></div>
+    <div><span class="lab">Language</span><span class="v">MATLAB Live Script</span></div>
+    <div><span class="lab">Checks</span><span class="v">Pin shear, case bearing, net tension</span></div>
+    <div><span class="lab">Output</span><span class="v">Pin count and row layout per end</span></div>
+  </div>
+
+  <figure class="hero" style="max-width:760px">
+    <img width="614" height="402" src="img/pin-cad.jpg" style="aspect-ratio:auto" alt="Wireframe CAD of a motor case end showing rows of radial pin holes around the case wall">
+    <figcaption><b>Pin layout in CAD.</b> Radial pins set in rows around the case wall, the geometry the script sizes.</figcaption>
+  </figure>
+
+  <div class="mods six" style="margin-top:28px">
+    <div class="mod"><span class="lab">Bulkhead load</span><span class="v">20,735<small>lbf</small></span></div>
+    <div class="mod"><span class="lab">Forward pins</span><span class="v">9<small>1 row</small></span></div>
+    <div class="mod"><span class="lab">Aft pins</span><span class="v">47<small>2 rows</small></span></div>
+    <div class="mod"><span class="lab">Aft rows</span><span class="v">24 + 23</span></div>
+    <div class="mod"><span class="lab">Max pins per row</span><span class="v">43</span></div>
+    <div class="mod"><span class="lab">Forward tension margin</span><span class="v">1.78</span></div>
+    <p class="note">Script output for a 4.0 in ID case with a 0.155 in wall and 0.125 in pins, designed to 1500 psi (twice peak chamber pressure) with a 1.1 safety factor.</p>
+  </div>
+
+  <section class="sec">
+    <h3>How it works</h3>
+    <div class="steps">
+      <div><b>Design load</b><p>The bulkhead force is design pressure times the bore area times the safety factor: 1500 psi over a 4.0 in bore at SF 1.1 gives 20,734.51 lbf on each closure.</p></div>
+      <div><b>Forward end: bond first</b><p>The forward closure sits in an epoxied joint, so the script first credits the bond (671 psi shear strength over 2 in of contact, about 16,864 lbf) and sizes pins only for the remaining load.</p></div>
+      <div><b>Pin count: shear vs. bearing</b><p>Each pin is checked in shear (650 lbf per 0.125 in pin, from its 1300 lbf double shear rating) and in bearing against the 0.155 in wall at 23,000 psi (about 446 lbf per pin). The script keeps whichever needs more pins; bearing in the case wall governs at both ends.</p></div>
+      <div><b>Row layout</b><p>Pins need 2.5 diameters of spacing, which fits 43 around the 4.31 in OD. Pins are split into the fewest rows and balanced across them: 9 forward in one row, 47 aft as 24 and 23.</p></div>
+      <div><b>Net section tension</b><p>The case wall that remains after drilling has to carry the full load in tension at 20,000 psi. At the forward row that leaves a 1.78 margin.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Inputs</h3>
+    <div class="two">
+      <div class="tablewrap">
+        <table class="dt compact">
+          <thead><tr><th>Input</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Design pressure</td><td class="num">1500 psi (2× peak chamber)</td></tr>
+            <tr><td>Safety factor</td><td class="num">1.1</td></tr>
+            <tr><td>Case inner diameter</td><td class="num">4.0 in</td></tr>
+            <tr><td>Wall thickness</td><td class="num">0.155 in</td></tr>
+            <tr><td>Bond length, forward</td><td class="num">2 in</td></tr>
+            <tr><td>Epoxy shear strength</td><td class="num">671 psi</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tablewrap">
+        <table class="dt compact">
+          <thead><tr><th>Input</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Pin diameter</td><td class="num">0.125 in</td></tr>
+            <tr><td>Pin rated shear force</td><td class="num">1300 lbf</td></tr>
+            <tr><td>Case bearing strength</td><td class="num">23,000 psi</td></tr>
+            <tr><td>Case axial tensile strength</td><td class="num">20,000 psi</td></tr>
+            <tr><td>Minimum pin spacing</td><td class="num">2.5 pin diameters</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Core of the script</h3>
+    <div class="eq">
+      <span class="lab">Governing relations</span>
+      <span>F = P · (π · ID² / 4) · SF</span>
+      <span>F<sub>bond</sub> = τ<sub>bond</sub> · π · ID · L</span>
+      <span>n = max( ⌈F<sub>pins</sub> / (τ<sub>pin</sub> · A<sub>pin</sub>)⌉ , ⌈F<sub>pins</sub> / (σ<sub>br</sub> · d · t)⌉ )</span>
+    </div>
+<pre class="code"><span class="c">%% ---- FORWARD END ANALYSIS ----</span>
+F_adhesion = tau_adhesion * pi * ID * l_adhesion;
+n_pins_forward = ceil((F - F_adhesion) / (tau_pin * A_pin_single));
+<span class="c">% Bearing check</span>
+n_pins_bearing = ceil((F - F_adhesion) / (sigma_bearing * d_pin * t));
+n_pins_forward_total = max(n_pins_forward, n_pins_bearing);
+
+<span class="c">% Tensile area available after drilling</span>
+A_available = (pi * ((ID + 2*t)^2 - ID^2) / 4) - n_pins_forward_total * (d_pin * t);
+F_tensile_limit_forward = A_available * sigma_tensile;</pre>
+  </section>
+</article>
+
+<!-- ================= PROJECT: LEDISCO SAT (SENIOR DESIGN) ================= -->
+<article class="page" id="ledisco-sat" data-size="xl" data-order="1" data-tag="Satellites" data-summary="Project manager for a 10 person team building a low cost 6U CubeSat prototype for laser downlink." data-cover="img/ledisco-frame-prototype.jpg" data-pos="center 45%" data-fit="cover" data-tab="LEDISCO Sat" data-meta="Senior design, 2026 to 2027" hidden>
+  <div class="phead">
+    <span class="lab">Senior design capstone, Florida Institute of Technology</span>
+    <h2>LEDISCO Sat</h2>
+    <p class="sub">A low cost 6U CubeSat prototype built to prove that laser downlink communication can fit a small satellite's size and budget.</p>
+  </div>
+
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">Project Manager, structures supporting engineer</span></div>
+    <div><span class="lab">Dates</span><span class="v num">2026 to 2027</span></div>
+    <div><span class="lab">Team</span><span class="v">10 students across 4 subsystems</span></div>
+    <div><span class="lab">Stage</span><span class="v">SRR complete, PDR in progress</span></div>
+  </div>
+
+  <figure class="hero">
+    <img width="1800" height="1013" src="img/ledisco-frame-prototype.jpg" fetchpriority="high" alt="Prototype CubeSat frame on a workbench: laser cut clear acrylic plates with X truss cutouts, joined by white 3D printed supports and machine screws" style="object-position:center 45%">
+    <figcaption><b>Physical model of the frame.</b> Laser cut acrylic plates and 3D printed supports, built this way so the structure can be prototyped quickly with laser cutting and waterjets before the metal frame.</figcaption>
+  </figure>
+
+  <div class="brief">
+    <div class="roles-list">
+      <h3>My role</h3>
+      <ul>
+        <li>Project manager for a 10 person team spanning structures, power, attitude control, and payload, working alongside the systems engineer.</li>
+        <li>Wrote the executive summary and problem statement of the System Requirements Document, and co-wrote its objectives, deliverables, broader impact, and Level 1 system requirements.</li>
+        <li>Supporting engineer on structures, focused on CAD and FEA, and built the physical frame model.</li>
+        <li>Ran the solar panel deployment trade study with the structures lead.</li>
+        <li>Research focus on Python visual recognition and localization and on quantum laser encoding.</li>
+      </ul>
+    </div>
+    <div class="mods">
+      <div class="mod"><span class="lab">Prototype budget</span><span class="v">&lt;$1,500</span></div>
+      <div class="mod"><span class="lab">Stowed envelope</span><span class="v">6U</span></div>
+      <div class="mod"><span class="lab">Mass limit</span><span class="v">1.5<small>kg per U</small></span></div>
+      <div class="mod"><span class="lab">Power ceiling</span><span class="v">90<small>W</small></span></div>
+      <div class="mod"><span class="lab">Laser downlink</span><span class="v">≥100<small>Mbit/s</small></span></div>
+      <div class="mod"><span class="lab">Attitude control</span><span class="v">3<small>deg error</small></span></div>
+      <p class="note">Level 1 and payload requirements from the System Requirements Document, September 2026.</p>
+    </div>
+  </div>
+
+  <section class="sec">
+    <h3>The problem</h3>
+    <div class="prose" style="font-size:16.5px">
+      <p>CubeSats still rely on radio links that face signal congestion, bottlenecked data rates, and growing concerns over security. Laser communication raises downlink data rates dramatically, but today's systems are large and consume a big share of a mission budget.</p>
+      <p>LEDISCO Sat (Laser Emitting Diode Intermittent Signal Communications Operations Satellite) targets a design simple and cheap enough to make laser downlink practical for CubeSat class missions. Dr. Eric Swenson, the faculty advisor and primary stakeholder, set the design constraints, launch conditions, and deployer dimensions.</p>
+    </div>
+    <div class="rows">
+      <div><b>Non space rated build</b><p>Build the prototype from non space rated materials, modeled on a space rated design, so the architecture can be validated on a student budget.</p></div>
+      <div><b>Under $1,500</b><p>Keep the prototype under $1,500 to encourage rapid prototyping and wider participation in the small satellite industry.</p></div>
+      <div><b>Autonomous modes</b><p>Switch autonomously between sun safe, survival, detumbling, and payload modes, taking ground input only during a LEO pass window.</p></div>
+      <div><b>Light based downlink</b><p>Carry a primary payload of optical downlink communication, with radio kept as the command and backup link.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>System architecture</h3>
+    <div class="arch">
+      <div class="arch-branch">
+        <b class="arch-head">Bus</b>
+        <div class="arch-subs">
+          <div class="arch-sub mine"><span class="arch-name">Structures</span><span>FEA</span><span>Solar panel deployment</span><span>CAD models and 3D printing</span></div>
+          <div class="arch-sub"><span class="arch-name">Electrical power</span><span>Batteries</span><span>Solar panels</span><span>Battery management</span><span>Power distribution</span></div>
+          <div class="arch-sub"><span class="arch-name">Attitude control</span><span>Attitude control code</span><span>Attitude control hardware</span></div>
+        </div>
+      </div>
+      <div class="arch-branch">
+        <b class="arch-head">Payload</b>
+        <div class="arch-subs">
+          <div class="arch-sub"><span class="arch-name">Communications</span><span>Laser transceiver and receiver</span><span>Beam steering</span><span>Telemetry and data acquisition</span><span>Radio transceiver and receiver</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="muted" style="font-size:14px">Subsystem breakdown from the team's architecture diagram. Structures, where I work as a supporting engineer, is outlined.</p>
+  </section>
+
+  <section class="sec">
+    <h3>Level 1 system requirements <small>Co-written with the systems engineer</small></h3>
+    <div class="tablewrap">
+      <table class="dt">
+        <thead><tr><th>ID</th><th>Requirement</th><th>Verification</th></tr></thead>
+        <tbody>
+          <tr><td class="id">SYS.01</td><td>Not exceed 6U in the stowed configuration, with a ±6.5 mm tolerance</td><td>Inspection</td></tr>
+          <tr><td class="id">SYS.02</td><td>Not exceed 1.5 kg of mass per 1U</td><td>Inspection, analysis</td></tr>
+          <tr><td class="id">SYS.03</td><td>Survive Falcon 9 launch conditions, shown on a random vibration table</td><td>Analysis, testing</td></tr>
+          <tr><td class="id">SYS.04</td><td>Draw no more than 90 W</td><td>Analysis, testing</td></tr>
+          <tr><td class="id">SYS.05</td><td>Control attitude autonomously within 3° of error</td><td>Analysis, demonstration</td></tr>
+          <tr><td class="id">SYS.06</td><td>Send data to the ground station through a primary payload covering all communication methods</td><td>Analysis, demonstration</td></tr>
+          <tr><td class="id">SYS.07</td><td>Keep all components within operating temperature in a LEO thermal environment (−20 °C to 65 °C)</td><td>Analysis</td></tr>
+          <tr><td class="id">SYS.08</td><td>Enter a survival mode on a critical system fault</td><td>Analysis, demonstration</td></tr>
+          <tr><td class="id">SYS.09</td><td>Enter a sun safe mode when stored power drops below 60%</td><td>Demonstration, testing</td></tr>
+          <tr><td class="id">SYS.10</td><td>Execute ground commands, run software, route payload data, and collect telemetry through a C&amp;DH system</td><td>Demonstration, testing</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Frame design</h3>
+    <div class="two lw">
+      <figure>
+        <div class="plate" style="padding:0;background:var(--cad)"><img width="1800" height="1079" src="img/ledisco-frame-cad.jpg" loading="lazy" alt="CAD render of the frame: two truss patterned plates separated by rows of vertical supports" style="background:transparent"></div>
+        <figcaption><b>Frame CAD.</b> Two truss plates joined by side, corner, and center supports.</figcaption>
+      </figure>
+      <div class="stack">
+        <p style="font-size:16px">The frame is sized to a 30 × 20 × 10 cm 6U envelope. Each plate is cut with X pattern trusses, Ø15 mm holes, and a field of Ø5 mm holes, then tied together by 3D printed supports at the corners, along the sides, and down the center.</p>
+        <p style="font-size:16px">Prototype frames are made from acrylic and PLA using laser cutting, waterjets, and 3D printers. The final frame moves to steel and aluminum through machining and waterjet cutting.</p>
+        <div class="rows">
+          <div><b>STR.01 Vibration</b><p>A chosen component survives 5.12 g<sub>rms</sub> random vibration, matching Falcon 9.</p></div>
+          <div><b>STR.02 Center of gravity</b><p>Within 4.5 cm of center in X, 2 cm in Y, and 7 cm in Z, so attitude control can recover from tumbling.</p></div>
+          <div><b>STR.03 Thermal</b><p>No plastic deformation of the outer frame from −20 °C to 65 °C.</p></div>
+          <div><b>STR.04 Protrusion</b><p>Nothing protrudes more than 6.5 mm from the frame when stowed.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="drawings">
+      <figure class="plate"><img width="762" height="490" src="img/ledisco-panel-drawing.jpg" loading="lazy" alt="Dimensioned drawing of a frame plate with X truss cutouts, Ø15 and Ø5 holes and R2.5 corners"><figcaption><b>Plate.</b> Truss pattern with Ø15 and Ø5 mm holes.</figcaption></figure>
+      <figure class="plate"><img width="765" height="384" src="img/ledisco-side-elevation.jpg" loading="lazy" alt="Side elevation drawing of the frame showing 300 mm length and support stations at 98, 198 and 285 mm"><figcaption><b>Side elevation.</b> 300 mm long with support stations along the side.</figcaption></figure>
+      <figure class="plate"><img width="468" height="283" src="img/ledisco-end-elevation.jpg" loading="lazy" alt="End elevation drawing of the frame showing 200 mm width"><figcaption><b>End elevation.</b> 200 mm across.</figcaption></figure>
+      <figure class="plate"><img width="1599" height="884" src="img/ledisco-side-support.jpg" loading="lazy" alt="Dimensioned drawing and isometric view of the side supports"><figcaption><b>Side supports.</b></figcaption></figure>
+      <figure class="plate"><img width="738" height="958" src="img/ledisco-corner-support.jpg" loading="lazy" alt="Dimensioned drawing of a corner support"><figcaption><b>Corner support.</b></figcaption></figure>
+      <figure class="plate"><img width="558" height="864" src="img/ledisco-center-support.jpg" loading="lazy" alt="Dimensioned drawing of a center support with four bolt holes"><figcaption><b>Center support.</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Trade study: solar panel deployment <small>Weighted decision matrix</small></h3>
+    <p style="font-size:16px;max-width:68ch">The deployable panels have to stay stowed inside the 6.5 mm protrusion limit through launch, then release reliably in orbit. Six mechanisms were scored from 0 to 4 against six weighted criteria.</p>
+    <div class="stack" style="gap:28px">
+      <div class="tablewrap">
+        <table class="dt compact pugh">
+          <thead><tr><th>Criterion</th><th class="num">Weight</th><th class="num win">Spring + burn wire</th><th class="num">Spring + SMA puller</th><th class="num">Tape spring + melt line</th><th class="num">Motorized hinge</th><th class="num">SMA hinge actuator</th><th class="num">Cable coupled spring</th></tr></thead>
+          <tbody>
+            <tr><td>Reliability and heritage</td><td class="num">30%</td><td class="num win">4</td><td class="num">3</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">2</td></tr>
+            <tr><td>Mass and volume</td><td class="num">20%</td><td class="num win">3</td><td class="num">2</td><td class="num">4</td><td class="num">0</td><td class="num">2</td><td class="num">2</td></tr>
+            <tr><td>Stiffness and latching</td><td class="num">15%</td><td class="num win">3</td><td class="num">3</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num">3</td></tr>
+            <tr><td>Sequencing and shock</td><td class="num">15%</td><td class="num win">1</td><td class="num">1</td><td class="num">1</td><td class="num">4</td><td class="num">3</td><td class="num">4</td></tr>
+            <tr><td>Cost</td><td class="num">10%</td><td class="num win">4</td><td class="num">1</td><td class="num">3</td><td class="num">1</td><td class="num">2</td><td class="num">3</td></tr>
+            <tr><td>Power and electronics</td><td class="num">10%</td><td class="num win">3</td><td class="num">2</td><td class="num">3</td><td class="num">1</td><td class="num">1</td><td class="num">4</td></tr>
+            <tr class="total"><td>Weighted total</td><td class="num">100%</td><td class="num win">3.10</td><td class="num">2.20</td><td class="num">2.00</td><td class="num">1.70</td><td class="num">1.75</td><td class="num">2.75</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two">
+        <div class="score" role="list" aria-label="Weighted totals">
+          <div role="listitem" class="best"><span>Spring + burn wire</span><span class="track"><i style="width:77.5%"></i></span><b>3.10</b></div>
+          <div role="listitem"><span>Cable coupled spring</span><span class="track"><i style="width:68.75%"></i></span><b>2.75</b></div>
+          <div role="listitem"><span>Spring + SMA puller</span><span class="track"><i style="width:55%"></i></span><b>2.20</b></div>
+          <div role="listitem"><span>Tape spring + melt line</span><span class="track"><i style="width:50%"></i></span><b>2.00</b></div>
+          <div role="listitem"><span>SMA hinge actuator</span><span class="track"><i style="width:43.75%"></i></span><b>1.75</b></div>
+          <div role="listitem"><span>Motorized hinge</span><span class="track"><i style="width:42.5%"></i></span><b>1.70</b></div>
+        </div>
+        <p style="font-size:15.5px"><b>Selected: spring + burn wire.</b> It took top marks on reliability and heritage, the most heavily weighted criterion, and on cost. The matrix also makes its weak spot plain: release sequencing and deployment shock scored 1 of 4. The cable coupled spring is the runner up, with top marks on sequencing and power.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Concept of operations</h3>
+    <div class="steps">
+      <div><b>Design, assembly, and integration</b><p>Design the system, build the structure, and integrate the onboard computer, power system, attitude control, and optical payload into a fully assembled prototype.</p></div>
+      <div><b>Subsystem testing</b><p>Validate each subsystem on its own: laser power and quality, sensor calibration, power system load testing, and solar panel deployment.</p></div>
+      <div><b>Integrated system testing</b><p>Run flight software, command handling, data flow, power distribution, and structural integrity against simulated launch vibration.</p></div>
+      <div><b>Pointing, acquisition, and tracking</b><p>Simulate the pointing and tracking needed to hold the laser on a ground receiver.</p></div>
+      <div><b>Optical communication demonstration</b><p>Demonstrate the laser downlink end to end. All operations are ground based; no space deployment is planned.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Verification and safety planning</h3>
+    <div class="two">
+      <div class="tablewrap">
+        <table class="dt compact">
+          <thead><tr><th>Test</th><th>Name</th><th>Verifies</th></tr></thead>
+          <tbody>
+            <tr><td class="id">SYS-T1.1</td><td>Stowed outer dimension measurement</td><td class="id">SYS.01</td></tr>
+            <tr><td class="id">SYS-T1.2</td><td>Completed assembled mass measurement</td><td class="id">SYS.02</td></tr>
+            <tr><td class="id">SYS-T1.3</td><td>Component and subassembly weigh in</td><td class="id">SYS.02</td></tr>
+            <tr><td class="id">SYS-T1.4</td><td>Mass budget analysis</td><td class="id">SYS.02</td></tr>
+            <tr><td class="id">SYS-T2.1</td><td>FEA 3 axis vibration analysis</td><td class="id">SYS.03</td></tr>
+            <tr><td class="id">SYS-T2.2</td><td>Scaled down structure shaker table test</td><td class="id">SYS.03</td></tr>
+            <tr><td class="id">SYS-T2.3</td><td>Reaction wheel shaker table test</td><td class="id">SYS.03</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tablewrap">
+        <table class="dt compact">
+          <thead><tr><th>Activity</th><th>Risk</th><th>After controls</th></tr></thead>
+          <tbody>
+            <tr><td>Machine shop</td><td>High</td><td>Med</td></tr>
+            <tr><td>Waterjet</td><td>Med</td><td>Med</td></tr>
+            <tr><td>3D printing</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Drills</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Vibration table tests</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Battery testing</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Circuit testing</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Soldering iron</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Satellite assembly</td><td>Med</td><td>Low</td></tr>
+            <tr><td>Laser testing</td><td>Low</td><td>Low</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="muted" style="font-size:14px;max-width:72ch">Tests trace back to the Level 1 requirements they verify, and each shop and test activity carries a hazard assessment with controls such as trained operators, PPE, current limited power, and barriers.</p>
+  </section>
+</article>
+
+
+
+<!--
+  ADDING A PROJECT
+  1. Put photos in img/ and videos in media/.
+  2. Copy the block below, paste it with the other project articles, and fill it in.
+     id           becomes the direct link, like #your-project-id
+     data-tab     the project name on its tile, menu entry and page header
+     data-meta    the small date line
+     data-order   where the tile sits in the Work gallery (1 is first)
+     data-size    tile size: xl (2x2), tall (1x2), wide (2x1), or one (1x1)
+     data-tag     a short area label, like Propulsion
+     data-summary one sentence that slides in on hover
+     data-cover   the tile and page header photo; data-fit="contain" turns a white drawing into a blueprint
+     data-pos     optional focus point for the photo crop, like "center 30%"
+  3. The tile, the Work menu entry, the page header, the photo viewer, and the "Next project" link are created automatically.
+  Building blocks used in the existing pages: .strip, .hero, .mods, .sec, .parts, .media,
+  .timeline, .failure, .rows, .steps, .mgrid, .gallery.
+
+<article class="page" id="your-project-id" data-tab="Project name" data-meta="Mon YYYY" data-order="7" data-size="one" data-tag="Area" data-summary="One sentence about the project." data-cover="img/your-photo.jpg" hidden>
+  <div class="phead">
+    <span class="lab">Organization or team</span>
+    <h2>Project name</h2>
+    <p class="sub">One sentence on what it is.</p>
+  </div>
+  <div class="strip">
+    <div><span class="lab">Role</span><span class="v">...</span></div>
+    <div><span class="lab">Date</span><span class="v">...</span></div>
+    <div><span class="lab">Team</span><span class="v">...</span></div>
+    <div><span class="lab">Tools</span><span class="v">...</span></div>
+  </div>
+</article>
+-->
+
+<footer><span>Srithvik Ellanki, Engineering Portfolio</span><span class="email">Srithvik.work@gmail.com</span><a class="toplink" href="#top" data-top>Back to top</a></footer>
+</div>
+
+<div class="curtain" id="curtain" aria-hidden="true"><b id="curtain-label"></b></div>
+
+<script>
+/* ===== RESUME: to update, replace media/Srithvik_Ellanki_Resume.pdf with a new file of the same name. ===== */
+var RESUME_FILE = 'media/Srithvik_Ellanki_Resume.pdf';
+document.querySelectorAll('[data-resume]').forEach(function(a){ a.setAttribute('href', RESUME_FILE); });
+
+var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var FINE = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+var EASE = 'cubic-bezier(0.77, 0, 0.175, 1)', EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+
+/* Split headings into letters for the rise-in */
+document.querySelectorAll('.space h1 .word, .workhead h1 .word').forEach(function(w, wi){
+  var base = w.closest('.workhead') ? 0 : wi * 8;
+  w.innerHTML = w.textContent.split('').map(function(c, i){ return '<span class="ch" style="--i:' + (base + i) + '">' + c + '</span>'; }).join('');
+});
+/* Split the about statement into words that resolve as it scrolls into view */
+(function(){
+  var st = document.querySelector('[data-words]'); if (!st) return;
+  st.innerHTML = st.textContent.trim().split(/\s+/).map(function(w, i){ return '<span class="w" style="--i:' + i + '">' + w + '</span>'; }).join(' ');
+  if (REDUCE || !('IntersectionObserver' in window)) return;
+  var sec = st.closest('section');
+  if (sec.getBoundingClientRect().top < window.innerHeight * 0.85) return;
+  sec.classList.add('pre');
+  var io = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { sec.classList.remove('pre'); io.disconnect(); } }, {threshold: 0.35});
+  io.observe(st);
+})();
+
+/* "Lately I've been into" word swap */
+(function(){
+  var box = document.getElementById('swap'); if (!box || REDUCE) return;
+  var words = ['small satellites', 'solid motors', 'test stand design', 'laser comms', 'trail riding'], i = 0;
+  setInterval(function(){
+    if (document.hidden || box.closest('[hidden]')) return;
+    var cur = box.querySelector('span:not(.out)');
+    i = (i + 1) % words.length;
+    var nx = document.createElement('span'); nx.className = 'in'; nx.textContent = words[i];
+    box.appendChild(nx);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ nx.className = ''; if (cur) cur.className = 'out'; }); });
+    setTimeout(function(){ if (cur && cur.parentNode) cur.remove(); }, 700);
+  }, 2600);
+})();
+
+/* Hobby photos: zoomed in on me, pull back to the full shot on hover */
+(function(){
+  var snaps = [].slice.call(document.querySelectorAll('.snap'));
+  function fit(s){
+    var frame = s.querySelector('.snap-frame'), img = s.querySelector('.fg');
+    var w = frame.clientWidth, h = frame.clientHeight, iw = +img.getAttribute('width'), ih = +img.getAttribute('height');
+    if (!w || !h) return;
+    var f = (s.dataset.focus || '0.5,0.5').split(',').map(Number), z = +(s.dataset.zoom || 1.3);
+    var c = Math.min(w / iw, h / ih), v = Math.max(w / iw, h / ih), rw = iw * c, rh = ih * c;
+    var S = (v / c) * z, cx = w / 2, cy = h / 2;
+    var px = (w - rw) / 2 + f[0] * rw, py = (h - rh) / 2 + f[1] * rh;
+    var tx = -(px - cx) * S, ty = -(py - cy) * S;
+    var L = cx + ((w - rw) / 2 - cx) * S, R = cx + ((w + rw) / 2 - cx) * S, T = cy + ((h - rh) / 2 - cy) * S, B = cy + ((h + rh) / 2 - cy) * S;
+    tx = Math.min(-L, Math.max(w - R, tx)); ty = Math.min(-T, Math.max(h - B, ty));
+    img.style.setProperty('--s', S.toFixed(4)); img.style.setProperty('--tx', tx.toFixed(1) + 'px'); img.style.setProperty('--ty', ty.toFixed(1) + 'px');
+  }
+  function all(){ snaps.forEach(fit); }
+  all(); window.addEventListener('resize', all); window.addEventListener('load', all);
+  // touch: tap to toggle the full shot
+  window.__snapFit = all;
+})();
+
+/* Hero sky: stars at three depths drift with the cursor, Earth limb, satellite orbiting the portrait */
+(function(){
+  var cv = document.getElementById('sky'), hero = document.getElementById('hero'), por = document.getElementById('portrait');
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+  var W = 0, H = 0, stars = [], visible = true, raf = 0, t0 = performance.now(), P = {x:0,y:0,r:0};
+  var mx = 0, my = 0, ex = 0, ey = 0;
+  function rng(seed){ return function(){ seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
+  function build(){
+    var r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var pr = por.getBoundingClientRect();
+    P = { x: pr.left - r.left + pr.width / 2, y: pr.top - r.top + pr.height / 2, r: pr.width / 2 };
+    var rand = rng(20270), n = Math.round(W * H / 2000);
+    stars = [];
+    for (var i = 0; i < n; i++) {
+      var d = rand(), big = rand() < 0.07;
+      stars.push({ x: rand() * (W + 60) - 30, y: rand() * (H + 60) - 30, z: d < 0.6 ? 0.25 : d < 0.9 ? 0.6 : 1,
+                   r: big ? 0.9 + rand() * 0.8 : 0.3 + rand() * 0.6, a: big ? 0.75 + rand() * 0.25 : 0.25 + rand() * 0.45,
+                   p: rand() * 6.28, s: 0.4 + rand() * 1.1 });
+    }
+  }
+  function draw(now){
+    var t = (now - t0) / 1000;
+    ex += (mx - ex) * 0.06; ey += (my - ey) * 0.06;
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i], tw = REDUCE ? 1 : 0.75 + 0.25 * Math.sin(t * s.s + s.p);
+      ctx.globalAlpha = s.a * tw; ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(s.x - ex * 22 * s.z, s.y - ey * 16 * s.z, s.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    var R = Math.max(W * 1.3, 1000), cx = W * 0.6 - ex * 8, cy = H + R - Math.min(96, H * 0.12);
+    var g = ctx.createRadialGradient(cx, cy - R * 0.2, R * 0.5, cx, cy, R);
+    g.addColorStop(0, '#0b1830'); g.addColorStop(1, '#10284a');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.fill();
+    ctx.lineWidth = 26; ctx.strokeStyle = 'rgba(111,176,255,0.10)'; ctx.beginPath(); ctx.arc(cx, cy, R + 6, 0, 6.2832); ctx.stroke();
+    ctx.lineWidth = 7; ctx.strokeStyle = 'rgba(111,176,255,0.22)'; ctx.beginPath(); ctx.arc(cx, cy, R + 2, 0, 6.2832); ctx.stroke();
+    ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(170,210,255,0.85)'; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+    if (P.r > 0) {
+      var rx = P.r * 1.45, ry = P.r * 0.37, tilt = -0.32;
+      ctx.save(); ctx.translate(P.x, P.y); ctx.rotate(tilt);
+      ctx.setLineDash([2, 5]); ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(238,242,248,0.26)';
+      ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]);
+      var th = REDUCE ? 0.6 : (t / 36) * 6.2832 + 0.6;
+      for (var k = 22; k >= 0; k--) {
+        var a = th - k * 0.03, x = Math.cos(a) * rx, y = Math.sin(a) * ry;
+        ctx.globalAlpha = k === 0 ? 1 : (1 - k / 22) * 0.4;
+        ctx.fillStyle = k === 0 ? '#ffffff' : '#9cc8ff';
+        ctx.beginPath(); ctx.arc(x, y, k === 0 ? 2.6 : 1.3, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1; ctx.restore();
+    }
+  }
+  function active(){ return !REDUCE && visible && !document.hidden && !hero.closest('[hidden]'); }
+  function loop(now){ draw(now); raf = active() ? requestAnimationFrame(loop) : 0; }
+  function kick(){ if (!raf && active()) raf = requestAnimationFrame(loop); }
+  function refresh(){ if (hero.closest('[hidden]')) return; build(); draw(performance.now()); kick(); }
+  window.__skyRefresh = refresh;
+  refresh();
+  if (FINE && !REDUCE) hero.addEventListener('pointermove', function(e){
+    var r = hero.getBoundingClientRect();
+    mx = (e.clientX - r.left) / r.width * 2 - 1; my = (e.clientY - r.top) / r.height * 2 - 1;
+  });
+  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(refresh, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+  window.addEventListener('load', refresh);
+  document.addEventListener('visibilitychange', kick);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible = es[0].isIntersecting; kick(); }).observe(cv);
+  // portrait reveal settles after its intro; measure again so the orbit centers on it
+  setTimeout(refresh, 1700);
+})();
+
+/* Buttons: magnetic lean on the main call to action, fill origin follows the cursor on ghost buttons */
+(function(){
+  if (!FINE || REDUCE) return;
+  document.querySelectorAll('[data-magnet]').forEach(function(b){
+    b.addEventListener('pointermove', function(e){
+      var r = b.getBoundingClientRect();
+      b.style.setProperty('--bx', ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + 'px');
+      b.style.setProperty('--by', ((e.clientY - r.top - r.height / 2) * 0.28).toFixed(1) + 'px');
+    });
+    b.addEventListener('pointerleave', function(){ b.style.setProperty('--bx', '0px'); b.style.setProperty('--by', '0px'); });
+  });
+  document.addEventListener('pointerover', function(e){
+    var b = e.target.closest && e.target.closest('.btn-ghost'); if (!b) return;
+    var r = b.getBoundingClientRect();
+    b.style.setProperty('--fx', ((e.clientX - r.left) / r.width * 100).toFixed(0) + '%');
+    b.style.setProperty('--fy', ((e.clientY - r.top) / r.height * 100).toFixed(0) + '%');
+  });
+})();
+
+/* Say hello pill: tap or click opens it for touch and keyboard users */
+(function(){
+  var h = document.getElementById('hello'); if (!h) return;
+  var b = h.querySelector('button');
+  b.addEventListener('click', function(){ var o = h.classList.toggle('open'); b.setAttribute('aria-expanded', String(o)); });
+  document.addEventListener('click', function(e){ if (!h.contains(e.target)) { h.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); } });
+})();
+
+/* Projects: tiles, menu, cinematic headers, next links, photo viewer, routing and transitions */
+(function(){
+  var home = document.getElementById('home'), work = document.getElementById('work'), aboutPage = document.getElementById('about-page');
+  var topbar = document.getElementById('topbar'), hero = document.getElementById('hero');
+  var projects = [].slice.call(document.querySelectorAll('article.page')).sort(function(a, b){
+    return (+a.dataset.order || 99) - (+b.dataset.order || 99);
+  });
+  var views = [home, aboutPage, work].concat(projects);
+  function esc(s){ var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+  function tile(p, size, headTag, i){
+    var blue = p.dataset.fit === 'contain', h = headTag || 'h3';
+    return '<a class="tile size-' + (size || p.dataset.size || 'one') + (blue ? ' blueprint' : '') + '" href="#' + p.id + '" style="--i:' + (i || 0) + '">' +
+      '<img src="' + esc(p.dataset.cover) + '" alt="" loading="lazy" style="object-position:' + esc(p.dataset.pos || 'center') + '">' + (p.dataset.credit ? '<span class="credit">' + esc(p.dataset.credit) + '</span>' : '') +
+      '<div class="tile-body"><div class="tile-meta"><span>' + esc(p.dataset.tag) + '</span><span>' + esc(p.dataset.meta) + '</span></div>' +
+      '<' + h + '>' + esc(p.dataset.tab) + '</' + h + '>' +
+      '<div class="tile-more"><div><p class="tile-sum">' + esc(p.dataset.summary) + '</p><span class="tile-cta">View project</span></div></div></div></a>';
+  }
+  document.getElementById('reel').innerHTML = projects.map(function(p, i){
+    return '<a class="panel' + (p.dataset.fit === 'contain' ? ' blueprint' : '') + '" href="#' + p.id + '" data-fly draggable="false" style="--i:' + i + '">' +
+      '<img src="' + esc(p.dataset.cover) + '" alt="" draggable="false" style="object-position:' + esc(p.dataset.pos || 'center') + '">' + (p.dataset.credit ? '<span class="credit">' + esc(p.dataset.credit) + '</span>' : '') +
+      '<div class="panel-body"><div class="panel-meta"><span>' + esc(p.dataset.tag) + '</span><span>' + esc(p.dataset.meta) + '</span></div>' +
+      '<h2>' + esc(p.dataset.tab) + '</h2><p>' + esc(p.dataset.summary) + '</p><span class="open"><i></i>Open project</span></div></a>';
+  }).join('') +
+    '<div class="panel soon" style="--i:' + projects.length + '">' +
+      '<div class="soon-art" aria-hidden="true"><span class="ring r1"><i></i></span><span class="ring r2"><i></i></span><span class="ring r3"></span><span class="hazard"></span></div>' +
+      '<div class="panel-body"><div class="panel-meta"><span>Under construction</span></div>' +
+      '<h2>More to come</h2><p>The next few projects are still in the shop. Check back soon.</p>' +
+      '<a class="open" href="mailto:Srithvik.work@gmail.com"><i></i>Get in touch</a></div></div>';
+  document.getElementById('rc-t').textContent = '/ ' + String(projects.length).padStart(2, '0');
+  document.getElementById('menu-list').innerHTML = projects.map(function(p){
+    return '<a class="mitem' + (p.dataset.fit === 'contain' ? ' blueprint' : '') + '" href="#' + p.id + '"><img src="' + esc(p.dataset.cover) + '" alt="" loading="lazy" style="object-position:' + esc(p.dataset.pos || 'center') + '"><span><b>' + esc(p.dataset.tab) + '</b><span>' + esc(p.dataset.tag) + ', ' + esc(p.dataset.meta) + '</span></span></a>';
+  }).join('');
+
+  projects.forEach(function(p, i){
+    var ph = p.querySelector('.phead');
+    var lab = ph && ph.querySelector('.lab'), sub = ph && ph.querySelector('.sub');
+    var head = document.createElement('header');
+    head.className = 'phero' + (p.dataset.fit === 'contain' ? ' blueprint' : '');
+    head.innerHTML = '<img src="' + esc(p.dataset.cover) + '" alt="" style="object-position:' + esc(p.dataset.pos || 'center') + '">' + (p.dataset.credit ? '<span class="credit">' + esc(p.dataset.credit) + '</span>' : '') +
+      '<div class="phero-body"><a class="backlink" href="#work">All work</a>' +
+      (lab ? '<span class="lab">' + lab.innerHTML + '</span>' : '') +
+      '<h1>' + esc(p.dataset.tab) + '</h1>' + (sub ? '<p class="sub">' + sub.innerHTML + '</p>' : '') + '</div>';
+    if (ph) ph.remove();
+    p.insertBefore(head, p.firstChild);
+    var lead = p.querySelector(':scope > figure.hero');
+    if (lead) {
+      var li = lead.querySelector('img');
+      if (li && li.getAttribute('src') === p.dataset.cover) {
+        var cap = lead.querySelector('figcaption'), strip = p.querySelector(':scope > .strip');
+        if (cap && strip) { var c = document.createElement('p'); c.className = 'hero-cap'; c.innerHTML = cap.innerHTML; strip.after(c); }
+        lead.remove();
+      }
+    }
+    var nx = projects[(i + 1) % projects.length];
+    var wrap = document.createElement('section');
+    wrap.className = 'nextup';
+    wrap.innerHTML = '<span class="lab">Next project</span>' + tile(nx, 'one', 'h2');
+    p.appendChild(wrap);
+  });
+
+  // Cursor drift inside tiles
+  if (FINE && !REDUCE) document.addEventListener('pointermove', function(e){
+    var t = e.target.closest && e.target.closest('.tile'); if (!t) return;
+    var r = t.getBoundingClientRect();
+    t.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3));
+    t.style.setProperty('--my', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3));
+  }, {passive: true});
+
+  // Dropdown menus: open on hover with a short grace period, or on click and tap
+  [].slice.call(document.querySelectorAll('[data-menu]')).forEach(function(item){
+    var trig = item.querySelector('.nav-link'), timer = 0, openedAt = 0;
+    function set(o){ if (o && !item.classList.contains('open')) openedAt = Date.now(); item.classList.toggle('open', o); trig.setAttribute('aria-expanded', String(o)); }
+    if (FINE) {
+      item.addEventListener('pointerenter', function(){ clearTimeout(timer); set(true); });
+      item.addEventListener('pointerleave', function(){ timer = setTimeout(function(){ set(false); }, 160); });
+    }
+    if (trig.tagName === 'BUTTON') trig.addEventListener('click', function(e){ e.stopPropagation(); set(!item.classList.contains('open')); });
+    else if (!FINE) trig.addEventListener('click', function(e){ if (!item.classList.contains('open') || Date.now() - openedAt < 600) { e.preventDefault(); e.stopPropagation(); set(true); } });
+    item.addEventListener('focusin', function(){ set(true); });
+    item.addEventListener('focusout', function(e){ if (!item.contains(e.relatedTarget)) set(false); });
+    item.addEventListener('keydown', function(e){ if (e.key === 'Escape') { set(false); trig.focus(); } });
+    item.addEventListener('click', function(e){ if (e.target.closest('.mitem, .menu-head a') || (FINE && e.target.closest('a.nav-link'))) { set(false); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); } });
+  });
+  document.addEventListener('click', function(e){
+    document.querySelectorAll('[data-menu].open').forEach(function(m){ if (!m.contains(e.target)) { m.classList.remove('open'); } });
+  });
+
+  // Photo viewer for project pages
+  var lb = null, list = [], idx = 0, lastFocus = null;
+  function buildLb(){
+    lb = document.createElement('div');
+    lb.className = 'lb'; lb.hidden = true;
+    lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Photo viewer');
+    lb.innerHTML = '<span class="lb-count"></span><button class="lb-close" type="button">Close</button><div class="lb-stage"><img alt=""></div><p></p>' +
+      '<button class="lb-prev" type="button">Previous</button><button class="lb-next" type="button">Next</button>';
+    document.body.appendChild(lb);
+    lb.querySelector('.lb-close').addEventListener('click', closeLb);
+    lb.querySelector('.lb-prev').addEventListener('click', function(){ showLb(idx - 1); });
+    lb.querySelector('.lb-next').addEventListener('click', function(){ showLb(idx + 1); });
+    lb.addEventListener('click', function(e){ if (e.target === lb || e.target.classList.contains('lb-stage')) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if (lb.hidden) return;
+      if (e.key === 'Escape') closeLb(); else if (e.key === 'ArrowRight') showLb(idx + 1); else if (e.key === 'ArrowLeft') showLb(idx - 1);
+    });
+  }
+  function showLb(i){
+    idx = (i + list.length) % list.length;
+    var im = list[idx], fig = im.closest('figure'), cap = fig && fig.querySelector('figcaption'), big = lb.querySelector('img');
+    big.src = im.currentSrc || im.src; big.alt = im.alt || '';
+    lb.querySelector('p').innerHTML = cap ? cap.innerHTML : esc(im.alt);
+    lb.querySelector('.lb-count').textContent = (idx + 1) + ' of ' + list.length;
+    lb.querySelector('.lb-prev').hidden = lb.querySelector('.lb-next').hidden = list.length < 2;
+  }
+  function openLb(img){
+    if (!lb) buildLb();
+    var scope = img.closest('article.page') || img.closest('.snaps');
+    list = [].slice.call(scope.querySelectorAll(scope.classList.contains('snaps') ? '.fg' : 'figure img, .pair img')).filter(function(x){ return !x.closest('.tile'); });
+    lastFocus = document.activeElement;
+    lb.hidden = false; document.documentElement.style.overflow = 'hidden';
+    showLb(list.indexOf(img));
+    requestAnimationFrame(function(){ lb.classList.add('open'); });
+    lb.querySelector('.lb-close').focus();
+  }
+  function closeLb(){ lb.classList.remove('open'); lb.hidden = true; document.documentElement.style.overflow = ''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  window.addEventListener('hashchange', function(){ if (lb && !lb.hidden) { lb.classList.remove('open'); lb.hidden = true; document.documentElement.style.overflow = ''; } });
+  document.addEventListener('click', function(e){
+    var img = e.target.closest && e.target.closest('article.page figure img, article.page .pair img');
+    var snap = e.target.closest && e.target.closest('.snap-frame');
+    if (snap) img = snap.querySelector('.fg');
+    if (img && !img.closest('.tile')) { e.preventDefault(); openLb(img); }
+  });
+
+  // ---------- Work reel: drag, arrows, parallax, progress ----------
+  (function(){
+    var reel = document.getElementById('reel'), bar = document.getElementById('reel-track');
+    if (!reel) return;
+    var panels = [].slice.call(reel.querySelectorAll('.panel')), rafId = 0, active = -1, rcn = document.getElementById('rc-n');
+    var nProj = reel.querySelectorAll('.panel:not(.soon)').length;
+    function update(){
+      rafId = 0;
+      var r = reel.getBoundingClientRect(), mid = r.left + r.width / 2;
+      var pad = parseFloat(getComputedStyle(reel).scrollPaddingLeft) || 0, mx = reel.scrollWidth - reel.clientWidth, best = 0, bd = 1e9;
+      if (r.width > 0 && !reel.classList.contains('gliding')) {
+        panels.forEach(function(p, i){ var d = Math.abs(p.getBoundingClientRect().left - r.left - pad); if (d < bd) { bd = d; best = i; } });
+        if (mx > 0 && reel.scrollLeft > mx - 4) best = panels.length - 1;
+        if (best !== active) {
+          active = best;
+          panels.forEach(function(p, i){ p.classList.toggle('on', i === best); });
+          var n = String(Math.min(best + 1, nProj)).padStart(2, '0');
+          if (rcn && rcn.textContent !== n) {
+            rcn.textContent = n;
+            if (!REDUCE && rcn.animate) rcn.animate([{transform: 'translateY(100%)', opacity: 0}, {transform: 'none', opacity: 1}], {duration: 800, easing: 'cubic-bezier(.22,1,.36,1)'});
+          }
+        }
+      }
+      panels.forEach(function(p){
+        var pr = p.getBoundingClientRect(), d = (pr.left + pr.width / 2 - mid) / r.width;
+        var ad = Math.min(1, Math.abs(d));
+        p.style.setProperty('--px', (REDUCE ? 0 : (-d * 70)).toFixed(1) + 'px');
+        p.style.setProperty('--ps', (1 - ad * 0.06).toFixed(4));
+        p.style.setProperty('--po', (1 - ad * 0.35).toFixed(3));
+      });
+      var max = reel.scrollWidth - reel.clientWidth;
+      var prog = max > 0 ? reel.scrollLeft / max : 1;
+      bar.style.setProperty('--prog', Math.max(0.08, prog).toFixed(3));
+      document.querySelectorAll('[data-reel]').forEach(function(b){
+        b.disabled = (+b.dataset.reel < 0 && reel.scrollLeft < 4) || (+b.dataset.reel > 0 && reel.scrollLeft > max - 4);
+      });
+    }
+    function queue(){ if (!rafId) rafId = requestAnimationFrame(update); }
+    reel.addEventListener('scroll', queue, {passive: true});
+    window.addEventListener('resize', queue);
+    window.__reelUpdate = queue;
+    var tw = 0;
+    function glide(to, dur){
+      var max = reel.scrollWidth - reel.clientWidth; to = Math.max(0, Math.min(max, to));
+      if (tw) cancelAnimationFrame(tw);
+      if (REDUCE) { reel.scrollLeft = to; return; }
+      var from = reel.scrollLeft, t0 = performance.now();
+      reel.classList.add('gliding');
+      var ease = function(t){ return -(Math.cos(Math.PI * t) - 1) / 2; };
+      (function frame(now){
+        var t = Math.min(1, (now - t0) / dur);
+        reel.scrollLeft = from + (to - from) * ease(t);
+        if (t < 1) tw = requestAnimationFrame(frame); else { tw = 0; pending = -1; reel.classList.remove('gliding'); queue(); }
+      })(t0);
+    }
+    function targetFor(i){
+      var r = reel.getBoundingClientRect(), pad = parseFloat(getComputedStyle(reel).scrollPaddingLeft) || 0, p = panels[i];
+      return p ? reel.scrollLeft + p.getBoundingClientRect().left - r.left - pad : reel.scrollLeft;
+    }
+    var pending = -1;
+    function step(dir){
+      var from = pending >= 0 ? pending : (active < 0 ? 0 : active);
+      var i = Math.max(0, Math.min(panels.length - 1, from + dir));
+      pending = i;
+      glide(targetFor(i), 2000);
+    }
+    document.querySelectorAll('[data-reel]').forEach(function(b){ b.addEventListener('click', function(){ step(+b.dataset.reel); }); });
+    reel.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight') { e.preventDefault(); step(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); } });
+    // mouse drag (touch already scrolls natively)
+    var down = false, sx = 0, sl = 0, moved = 0;
+    reel.addEventListener('pointerdown', function(e){
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = 0; sx = e.clientX; sl = reel.scrollLeft;
+    });
+    window.addEventListener('pointermove', function(e){
+      if (!down) return;
+      var dx = e.clientX - sx;
+      if (Math.abs(dx) > 4 && !reel.classList.contains('dragging')) reel.classList.add('dragging');
+      moved = Math.max(moved, Math.abs(dx));
+      reel.scrollLeft = sl - dx;
+    });
+    window.addEventListener('pointerup', function(){
+      if (!down) return; down = false;
+      if (reel.classList.contains('dragging')) {
+        reel.classList.remove('dragging');
+        // settle onto the nearest panel
+        var r = reel.getBoundingClientRect(), best = null, bd = 1e9, pad = parseFloat(getComputedStyle(reel).scrollPaddingLeft) || 0;
+        panels.forEach(function(p){ var d = Math.abs(p.getBoundingClientRect().left - r.left - pad); if (d < bd) { bd = d; best = p; } });
+        if (best) glide(reel.scrollLeft + best.getBoundingClientRect().left - r.left - pad, 900);
+      }
+    });
+    reel.addEventListener('click', function(e){ if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
+    update();
+  })();
+
+  // ---------- Photo pop-out: hover any photo to lift it off the page as a larger print ----------
+  (function(){
+    if (!FINE) return;
+    var SEL = '.snap-frame, article.page figure img, article.page .pair img';
+    var pop = null, srcEl = null, timer = 0, anim = null;
+    function target(el){
+      var t = el.closest && el.closest(SEL);
+      if (!t || t.closest('.tile, .phero, .panel, .lb')) return null;
+      return t;
+    }
+    function imgOf(t){ return t.classList.contains('snap-frame') ? t.querySelector('.fg') : t; }
+    function caption(t){
+      var fig = t.closest('figure'), cap = fig && fig.querySelector('figcaption');
+      return cap ? cap.innerHTML : '';
+    }
+    function show(t){
+      var img = imgOf(t); if (!img || !img.naturalWidth) return;
+      var r = t.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
+      var ar = img.naturalWidth / img.naturalHeight;
+      var maxW = Math.min(W - 48, Math.max(Math.min(W * 0.5, 680), r.width * 1.25)), maxH = Math.min(H * 0.84, H - 150);
+      var w = Math.min(maxW, maxH * ar);
+      if (w < r.width * 1.05 && (w / ar) < r.height * 1.05) return;   // already shown large enough
+      var h = w / ar;
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var left = Math.max(16, Math.min(W - w - 36, cx - w / 2 - 10));
+      var top = Math.max(76, Math.min(H - h - 52, cy - h / 2 - 10));
+      hide(true);
+      pop = document.createElement('div'); pop.className = 'pop';
+      var cap = t.classList.contains('snap-frame') ? '' : caption(t);
+      pop.innerHTML = '<img alt="" src="' + (img.currentSrc || img.src) + '">' + (cap ? '<span>' + cap + '</span>' : '');
+      pop.style.width = (w + 20) + 'px';
+      pop.style.left = left + 'px'; pop.style.top = top + 'px';
+      document.body.appendChild(pop);
+      var pr = pop.getBoundingClientRect();
+      var s0 = Math.min(r.width / pr.width, r.height / pr.height);
+      var dx = cx - (pr.left + pr.width / 2), dy = cy - (pr.top + pr.height / 2);
+      var rot = t.classList.contains('snap-frame') ? (Math.random() * 4 - 2).toFixed(2) : '0';
+      srcEl = t;
+      if (REDUCE) { pop.style.transform = 'rotate(' + rot + 'deg)'; return; }
+      anim = pop.animate([
+        {transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s0 + ') rotate(0deg)', opacity: 0.4},
+        {transform: 'translate(0,0) scale(1.015) rotate(' + rot + 'deg)', opacity: 1, offset: 0.75},
+        {transform: 'translate(0,0) scale(1) rotate(' + rot + 'deg)', opacity: 1}
+      ], {duration: 520, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'forwards'});
+      pop.__back = {dx: dx, dy: dy, s0: s0, rot: rot};
+    }
+    function hide(now){
+      clearTimeout(timer);
+      if (!pop) return;
+      var p = pop, b = p.__back; pop = null; srcEl = null;
+      if (now || REDUCE || !b) { p.remove(); return; }
+      var a = p.animate([
+        {transform: 'translate(0,0) scale(1) rotate(' + b.rot + 'deg)', opacity: 1},
+        {transform: 'translate(' + b.dx + 'px,' + b.dy + 'px) scale(' + b.s0 + ') rotate(0deg)', opacity: 0}
+      ], {duration: 260, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards'});
+      a.onfinish = function(){ p.remove(); };
+    }
+    document.addEventListener('pointerover', function(e){
+      var t = target(e.target);
+      if (!t) return;
+      if (t === srcEl) return;
+      clearTimeout(timer);
+      timer = setTimeout(function(){ show(t); }, 550);
+    });
+    document.addEventListener('pointerout', function(e){
+      var t = target(e.target); if (!t) return;
+      if (e.relatedTarget && t.contains(e.relatedTarget)) return;
+      clearTimeout(timer);
+      if (t === srcEl) hide(false);
+    });
+    window.addEventListener('scroll', function(){ if (pop) hide(true); }, {passive: true});
+    window.addEventListener('hashchange', function(){ hide(true); });
+    document.addEventListener('pointerdown', function(){ hide(true); });
+    // mark zoomable images for the cursor
+    document.querySelectorAll('article.page figure img, article.page .pair img').forEach(function(i){ if (!i.closest('.tile, .phero')) i.classList.add('zoomable'); });
+  })();
+
+  // Navigation state
+  function current(){ return views.filter(function(v){ return !v.hidden; })[0] || home; }
+  function setNav(id){
+    document.querySelectorAll('[data-nav]').forEach(function(a){
+      if (a.dataset.nav === id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  function darkTop(){
+    var v = current(), el = v === home ? home : v.querySelector('.phero');
+    var dark = (v === home || v === aboutPage) ? true : (!!el && el.getBoundingClientRect().bottom > 64);
+    topbar.classList.toggle('over', dark);
+  }
+  function homeNav(){}
+  function viewFor(id){
+    if (id === 'work') return work;
+    if (id === 'about') return aboutPage;
+    if (!id || id === 'home') return home;
+    return projects.filter(function(x){ return x.id === id; })[0] || home;
+  }
+  function apply(){
+    var id = (location.hash || '').slice(1) || 'home', target = viewFor(id);
+    views.forEach(function(v){ v.hidden = v !== target; });
+    var foot = document.querySelector('body > .wrap > footer, .wrap > footer'); if (foot) foot.hidden = target === home || target === aboutPage || target === work;
+    window.scrollTo(0, 0);
+    if (target === home) { if (window.__skyRefresh) window.__skyRefresh(); setNav(''); }
+    else if (target === aboutPage) { if (window.__snapFit) setTimeout(window.__snapFit, 20); setNav('about'); }
+    else setNav('work');
+    if (target === work) { var rl = document.getElementById('reel'); if (rl) rl.scrollLeft = 0; if (window.__reelUpdate) setTimeout(window.__reelUpdate, 30); }
+    darkTop();
+    document.title = target === home ? 'Srithvik Ellanki Portfolio' : target === aboutPage ? 'About | Srithvik Ellanki' : (target === work ? 'Work | Srithvik Ellanki' : target.dataset.tab + ' | Srithvik Ellanki');
+  }
+
+  // Transitions: a sky curtain that opens from the click point, or the tile photo expanding into the project header
+  var curtain = document.getElementById('curtain'), label = document.getElementById('curtain-label'), busy = false;
+  function go(hash, e, fromTile){
+    if (busy) return;
+    var sd = viewFor(hash.slice(1));
+    if (sd && document.body.animate) { softGo(hash, sd); return; }
+    if (REDUCE || !curtain.animate) { location.hash = hash; return; }
+    busy = true;
+    var id = hash.slice(1), dest = viewFor(id);
+    var x = e && e.clientX ? e.clientX : window.innerWidth / 2, y = e && e.clientY ? e.clientY : window.innerHeight / 2;
+    if (fromTile) {
+      var img = fromTile.querySelector('img'), r = img.getBoundingClientRect();
+      var fl = document.createElement('img');
+      fl.className = 'flyer'; fl.src = img.currentSrc || img.src; fl.alt = '';
+      fl.style.objectPosition = img.style.objectPosition;
+      if (fromTile.classList.contains('blueprint')) { fl.style.objectFit = 'contain'; fl.style.filter = 'invert(1) hue-rotate(180deg)'; fl.style.background = '#fff'; }
+      var hH = Math.min(window.innerHeight * 0.78, 720), W = window.innerWidth, H = window.innerHeight;
+      fl.style.height = H + 'px';
+      document.body.appendChild(fl);
+      var from = 'inset(' + Math.max(0, r.top) + 'px ' + (W - r.right) + 'px ' + Math.max(0, H - r.bottom) + 'px ' + r.left + 'px)';
+      var anim = fl.animate([{clipPath: from}, {clipPath: 'inset(0px 0px ' + Math.max(0, H - hH) + 'px 0px)'}], {duration: 640, easing: EASE, fill: 'forwards'});
+      anim.onfinish = function(){
+        location.hash = hash;
+        setTimeout(function(){
+          var f = fl.animate([{opacity: 1}, {opacity: 0}], {duration: 320, easing: 'ease-out', fill: 'forwards'});
+          f.onfinish = function(){ fl.remove(); busy = false; };
+        }, 60);
+      };
+      return;
+    }
+    label.textContent = dest === home ? 'Srithvik Ellanki' : dest === aboutPage ? 'About me' : (dest === work ? 'Work' : dest.dataset.tab);
+    curtain.style.visibility = 'visible';
+    var cur = current(), lift = (cur === home && dest === aboutPage) ? 1 : ((cur === aboutPage && dest === home) ? -1 : 0);
+    var open, closeFrom = 'inset(0 0 0 0)', closeTo = 'inset(0 0 100% 0)';
+    if (lift) {
+      var inner = cur.querySelector(lift > 0 ? '.space-inner' : '.home-wrap');
+      if (inner) { var ia = inner.animate([{transform: 'none', opacity: 1}, {transform: 'translateY(' + (lift * -120) + 'px)', opacity: 0}], {duration: 620, easing: EASE, fill: 'forwards'}); setTimeout(function(){ ia.cancel(); }, 1200); }
+      open = curtain.animate(lift > 0 ? [{clipPath: 'inset(100% 0 0 0)'}, {clipPath: 'inset(0 0 0 0)'}] : [{clipPath: 'inset(0 0 100% 0)'}, {clipPath: 'inset(0 0 0 0)'}], {duration: 620, easing: EASE, fill: 'forwards'});
+      if (lift < 0) closeTo = 'inset(100% 0 0 0)';
+    } else {
+      open = curtain.animate([{clipPath: 'circle(0% at ' + x + 'px ' + y + 'px)'}, {clipPath: 'circle(150% at ' + x + 'px ' + y + 'px)'}], {duration: 560, easing: EASE, fill: 'forwards'});
+    }
+    label.animate([{opacity: 0, transform: 'translateY(16px)'}, {opacity: 1, transform: 'none'}], {duration: 420, delay: 200, easing: EASE_OUT, fill: 'forwards'});
+    open.onfinish = function(){
+      location.hash = hash;
+      setTimeout(function(){
+        var close = curtain.animate([{clipPath: closeFrom}, {clipPath: closeTo}], {duration: 600, easing: EASE, fill: 'forwards'});
+        close.onfinish = function(){ curtain.style.visibility = 'hidden'; open.cancel(); close.cancel(); label.getAnimations().forEach(function(a){ a.cancel(); }); busy = false; };
+      }, 180);
+    };
+  }
+  // Soft transition: the page drifts up and fades, then the next one rises in behind a gradient edge
+  var SOFT = 'cubic-bezier(.45,0,.2,1)', GLIDE = 'cubic-bezier(.22,1,.36,1)';
+  function softGo(hash, dest){
+    // The next page slides up over the current one with a soft gradient leading edge,
+    // while the current page sinks back and dims. Both stay on screen the whole time.
+    busy = true;
+    var cur = current(), H = window.innerHeight, sy = window.scrollY;
+    var DUR = REDUCE ? 450 : 1400, EDGE = Math.round(H * 0.28);
+    dest.hidden = false;
+    dest.classList.add('in-transit');
+    var bits = [];
+    function finish(){
+      history.pushState(null, '', hash);
+      apply();
+      dest.classList.remove('in-transit');
+      bits.forEach(function(a){ a.cancel(); });
+      busy = false;
+    }
+    if (REDUCE) {
+      var f = dest.animate([{opacity: 0}, {opacity: 1}], {duration: DUR, easing: 'ease', fill: 'forwards'});
+      bits.push(f); f.onfinish = finish; return;
+    }
+    cur.style.transformOrigin = '50% ' + (sy + H / 2) + 'px';
+    bits.push(cur.animate([{transform: 'none', opacity: 1}, {transform: 'translateY(-16vh) scale(.94)', opacity: 0.15}],
+      {duration: DUR, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards'}));
+    var mk = function(y){ return {maskPosition: '0 ' + y + 'px', webkitMaskPosition: '0 ' + y + 'px'}; };
+    dest.style.setProperty('--edge', EDGE + 'px');
+    var slide = dest.animate([
+      Object.assign({transform: 'translateY(' + H + 'px)'}, mk(0)),
+      Object.assign({transform: 'translateY(0px)'}, mk(-EDGE))
+    ], {duration: DUR, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards'});
+    bits.push(slide);
+    // content settles in one piece at a time as the page arrives
+    var sel = dest === aboutPage ? '.statement, .about-grid > div > *, .off-head > *, .snap, .closer > *'
+            : dest === work ? '.workhead p, .reel-foot'
+            : dest === home ? '.kicker, .pitch, .actions, .sub-actions, .portrait, .to-about'
+            : ':scope > :not(.phero)';
+    var n = 0;
+    [].slice.call(dest.querySelectorAll(sel)).forEach(function(el){
+      var r = el.getBoundingClientRect(); if (r.height === 0 || r.top - H > H) return;
+      bits.push(el.animate([{opacity: 0, transform: 'translateY(56px)', filter: 'blur(8px)'}, {opacity: 1, transform: 'none', filter: 'blur(0px)'}],
+        {duration: 1300, delay: 520 + n * 130, easing: GLIDE, fill: 'backwards'}));
+      n++;
+    });
+    slide.onfinish = function(){
+      // let the staggered pieces keep playing after the page lands
+      bits = bits.filter(function(a){ return a === slide || a.effect.target === cur; });
+      cur.style.transformOrigin = '';
+      finish();
+    };
+  }
+  document.addEventListener('click', function(e){
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+    var hash = a.getAttribute('href'); if (hash === '#top' || hash === '#') return;
+    var id = hash.slice(1), dest = viewFor(id);
+    if (id !== 'home' && id !== 'about' && id !== 'work' && dest === home) return;
+    e.preventDefault();
+    if (dest === current()) {
+      if (location.hash !== hash) history.replaceState(null, '', hash);
+      window.scrollTo({top: 0, behavior: REDUCE ? 'auto' : 'smooth'});
+      return;
+    }
+    var t = (a.classList.contains('tile') || a.hasAttribute('data-fly')) ? a : null;
+    go(hash, e, t);
+  });
+
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
+  window.addEventListener('hashchange', apply);
+  window.addEventListener('scroll', function(){ darkTop(); homeNav(); }, {passive: true});
+  apply();
+  window.addEventListener('load', function(){
+    var id = (location.hash || '').slice(1);
+    if (window.scrollY > 0) window.scrollTo(0, 0);
+    darkTop();
+  });
+  document.querySelectorAll('[data-top]').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); window.scrollTo({top: 0, behavior: REDUCE ? 'auto' : 'smooth'}); }); });
+
+  // Copy email
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    var original = b.textContent;
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var text = b.dataset.copy, reset = function(){ setTimeout(function(){ b.textContent = original; }, 1600); };
+      var fallback = function(){
+        var el = b.closest('div').parentNode.querySelector('.email') || b.parentNode.querySelector('.email');
+        if (el) { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+        b.textContent = 'Selected'; reset();
+      };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function(){ b.textContent = 'Copied'; reset(); }, fallback);
+        else fallback();
+      } catch (err) { fallback(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,10 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-</head>
-<body>
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Srithvik Ellanki Portfolio</title>
 <meta name="description" content="Engineering portfolio of Srithvik Ellanki, Aerospace Engineering (Astronautics) at Florida Institute of Technology.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -789,6 +783,68 @@ body{margin:0}
 .cadpair .stand-real{grid-column:1/-1}
 .cadpair .stand-real img{aspect-ratio:auto;object-fit:cover;width:100%}
 .page:not([hidden]){animation:none}
+
+/* ===== v10: photo landing, scroll to About, About build visual, quicker motion ===== */
+/* Landing: real static fire photo instead of the drawn sky, slow zoom in on load */
+.space{background:#0b0d10}
+.space-bg{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:56% 40%;z-index:-2;transform-origin:56% 60%;animation:herozoom 2.6s cubic-bezier(.22,1,.36,1) both}
+@keyframes herozoom{from{opacity:0;transform:scale(1)}to{opacity:1;transform:scale(1.08)}}
+.space-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  linear-gradient(90deg,rgba(7,9,13,.88) 0%,rgba(7,9,13,.62) 38%,rgba(7,9,13,.18) 62%,rgba(7,9,13,.5) 100%),
+  linear-gradient(180deg,rgba(7,9,13,.55) 0%,rgba(7,9,13,0) 24%,rgba(7,9,13,0) 62%,rgba(7,9,13,.85) 100%)}
+.space .pitch{color:#c9d1dc}
+.space .kicker{color:#c9d1dc}
+@media (max-width:900px){
+  .space-bg{object-position:50% 40%}
+  .space-shade{background:linear-gradient(180deg,rgba(7,9,13,.5) 0%,rgba(7,9,13,.55) 40%,rgba(7,9,13,.85) 100%)}
+}
+
+/* About: statement with a CAD to bench visual beside it */
+.about-top{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px clamp(40px,6vw,80px);align-items:center}
+.build{margin:0;display:grid;gap:12px;justify-self:end;width:min(100%,440px)}
+.build-frame{position:relative;overflow:hidden;aspect-ratio:4/5;background:#0b111d;border:1px solid rgba(238,242,248,.14);box-shadow:0 40px 90px rgba(2,6,16,.55);isolation:isolate;cursor:default}
+.build-cad,.build-photo{position:absolute;inset:0;width:100%;height:100%}
+.build-cad{display:grid;place-items:center;background:#0d1626;
+  background-image:linear-gradient(rgba(140,175,235,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(140,175,235,.10) 1px,transparent 1px),linear-gradient(rgba(140,175,235,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(140,175,235,.05) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,16px 16px,16px 16px}
+.build-cad img{width:82%;height:auto;mix-blend-mode:screen;filter:grayscale(1) contrast(1.4) brightness(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 98%);mask-image:radial-gradient(closest-side,#000 62%,transparent 98%);animation:cadspin 9s ease-in-out infinite}
+@keyframes cadspin{0%,100%{transform:rotate(-4deg) scale(.96)}50%{transform:rotate(4deg) scale(1.02)}}
+.build-photo{object-fit:cover;object-position:50% 40%;max-width:none;clip-path:inset(0 0 0 100%);animation:benchwipe 8s cubic-bezier(.77,0,.175,1) infinite}
+@keyframes benchwipe{0%,12%{clip-path:inset(0 0 0 100%);transform:scale(1.08)}40%,82%{clip-path:inset(0 0 0 0);transform:scale(1)}100%{clip-path:inset(0 0 0 0);transform:scale(1.02)}}
+.build-scan{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--sky-glow);box-shadow:0 0 18px 2px rgba(111,176,255,.7);z-index:2;opacity:0;animation:benchscan 8s cubic-bezier(.77,0,.175,1) infinite}
+@keyframes benchscan{0%,12%{left:100%;opacity:0}14%{opacity:1}38%{opacity:1}40%,100%{left:0;opacity:0}}
+.build-frame::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(4,7,14,0) 60%,rgba(4,7,14,.55) 100%)}
+.build-tag{position:absolute;left:14px;bottom:14px;z-index:3;display:inline-grid;font-size:12.5px;font-weight:650;letter-spacing:.02em;color:#eef2f8;padding:6px 12px;border-radius:999px;background:rgba(7,11,20,.55);border:1px solid rgba(238,242,248,.2);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow:hidden}
+.build-tag b{grid-area:1/1;font-weight:650}
+.build-tag .t-cad{animation:tagcad 8s linear infinite}
+.build-tag .t-bench{animation:tagbench 8s linear infinite}
+@keyframes tagcad{0%,26%{opacity:1;transform:none}30%,96%{opacity:0;transform:translateY(-100%)}100%{opacity:1;transform:none}}
+@keyframes tagbench{0%,26%{opacity:0;transform:translateY(100%)}30%,96%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-100%)}}
+.build figcaption{font-size:14px;color:var(--sky-muted)}
+.build figcaption b{color:var(--sky-ink);font-weight:650}
+@media (max-width:900px){
+  .about-top{grid-template-columns:1fr}
+  .build{justify-self:start;width:min(100%,420px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .space-bg{animation:none;transform:scale(1.04)}
+  .build-cad img,.build-scan,.build-tag .t-cad,.build-tag .t-bench{animation:none}
+  .build-photo{animation:none;clip-path:none}
+  .build-tag .t-cad{opacity:0}
+}
+
+/* Quicker motion: Work intro and the project reel */
+#work:not([hidden]) .workhead h1 .ch{animation-duration:.8s;animation-delay:calc(.08s + var(--i) * .04s)}
+#work:not([hidden]) .panel{animation:reelin 1s cubic-bezier(.22,1,.36,1) backwards;animation-delay:calc(.15s + var(--i) * .07s)}
+.panel{transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .7s ease}
+.panel:not(.blueprint) img{transition:transform .8s cubic-bezier(.22,1,.36,1),filter .7s ease}
+.panel.blueprint img{transition:transform .8s cubic-bezier(.22,1,.36,1),opacity .7s ease}
+.panel-body > *{transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .55s ease,clip-path .7s cubic-bezier(.22,1,.36,1),filter .55s ease}
+.panel.on .panel-body > *:nth-child(1){transition-delay:.12s}
+.panel.on .panel-body > *:nth-child(2){transition-delay:.18s}
+.panel.on .panel-body > *:nth-child(3){transition-delay:.24s}
+.panel.on .panel-body > *:nth-child(4){transition-delay:.3s}
+.reel-track i{transition:transform .7s cubic-bezier(.22,1,.36,1)}
 </style>
 
 <header class="topbar" id="topbar">
@@ -822,7 +878,7 @@ body{margin:0}
 <!-- ================= HOME: just me ================= -->
 <main class="view" id="home">
   <section class="space" id="hero" aria-label="Introduction">
-    <canvas id="sky" aria-hidden="true"></canvas>
+    <img class="space-bg" src="img/hero-static-fire.jpg" width="2400" height="1350" alt="" fetchpriority="high" aria-hidden="true"><span class="space-shade" aria-hidden="true"></span>
     <div class="space-inner">
       <div>
         <p class="kicker rise d1">Aerospace engineering, Florida Tech</p>
@@ -839,9 +895,6 @@ body{margin:0}
             </div></div>
           </div>
         </div>
-        <div class="sub-actions rise d5">
-          <a class="btn btn-ghost btn-small" href="media/Srithvik_Ellanki_Resume.pdf" data-resume target="_blank" rel="noopener">Resume</a>
-        </div>
       </div>
       <div class="portrait" id="portrait">
         <img src="img/about-headshot.jpg" width="880" height="1100" alt="Portrait of Srithvik Ellanki in a white shirt and dark tie" fetchpriority="high">
@@ -856,7 +909,18 @@ body{margin:0}
 
   <div class="home-wrap">
     <section class="about-sec" id="about" aria-labelledby="about-title">
-      <h2 class="statement" id="about-title" data-words>I like building things, breaking a few of them, and figuring out why.</h2>
+      <div class="about-top">
+        <h2 class="statement" id="about-title" data-words>I like building things, breaking a few of them, and figuring out why.</h2>
+        <figure class="build" aria-label="From CAD to the bench: a BATES propellant grain">
+          <div class="build-frame">
+            <div class="build-cad"><img src="img/grain-cad.jpg" width="915" height="753" alt="CAD render of a BATES propellant grain"></div>
+            <img class="build-photo" src="img/about-grain-bonding.jpg" width="1200" height="1600" alt="A cast propellant grain being bonded to its liner with red high temperature sealant on a shop bench">
+            <span class="build-scan" aria-hidden="true"></span>
+            <span class="build-tag" aria-hidden="true"><b class="t-cad">CAD</b><b class="t-bench">Bench</b></span>
+          </div>
+          <figcaption><b>From model to motor.</b> Bonding a propellant grain to its liner in the shop.</figcaption>
+        </figure>
+      </div>
       <div class="about-grid">
         <div>
           <h3>What I like working on</h3>
@@ -2132,7 +2196,7 @@ document.querySelectorAll('.space h1 .word, .workhead h1 .word').forEach(functio
       var from = pending >= 0 ? pending : (active < 0 ? 0 : active);
       var i = Math.max(0, Math.min(panels.length - 1, from + dir));
       pending = i;
-      glide(targetFor(i), 2000);
+      glide(targetFor(i), 850);
     }
     document.querySelectorAll('[data-reel]').forEach(function(b){ b.addEventListener('click', function(){ step(+b.dataset.reel); }); });
     reel.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight') { e.preventDefault(); step(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); } });
@@ -2330,7 +2394,7 @@ document.querySelectorAll('.space h1 .word, .workhead h1 .word').forEach(functio
     // while the current page sinks back and dims. Both stay on screen the whole time.
     busy = true;
     var cur = current(), H = window.innerHeight, sy = window.scrollY;
-    var DUR = REDUCE ? 450 : 1400, EDGE = Math.round(H * 0.28);
+    var DUR = REDUCE ? 300 : 640, EDGE = Math.round(H * 0.22);
     dest.hidden = false;
     dest.classList.add('in-transit');
     var bits = [];
@@ -2356,15 +2420,15 @@ document.querySelectorAll('.space h1 .word, .workhead h1 .word').forEach(functio
     ], {duration: DUR, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards'});
     bits.push(slide);
     // content settles in one piece at a time as the page arrives
-    var sel = dest === aboutPage ? '.statement, .about-grid > div > *, .off-head > *, .snap, .closer > *'
+    var sel = dest === aboutPage ? '.statement, .build, .about-grid > div > *, .off-head > *, .snap, .closer > *'
             : dest === work ? '.workhead p, .reel-foot'
-            : dest === home ? '.kicker, .pitch, .actions, .sub-actions, .portrait, .to-about'
+            : dest === home ? '.kicker, .pitch, .actions, .portrait, .to-about'
             : ':scope > :not(.phero)';
     var n = 0;
     [].slice.call(dest.querySelectorAll(sel)).forEach(function(el){
       var r = el.getBoundingClientRect(); if (r.height === 0 || r.top - H > H) return;
-      bits.push(el.animate([{opacity: 0, transform: 'translateY(56px)', filter: 'blur(8px)'}, {opacity: 1, transform: 'none', filter: 'blur(0px)'}],
-        {duration: 1300, delay: 520 + n * 130, easing: GLIDE, fill: 'backwards'}));
+      bits.push(el.animate([{opacity: 0, transform: 'translateY(28px)', filter: 'blur(4px)'}, {opacity: 1, transform: 'none', filter: 'blur(0px)'}],
+        {duration: 620, delay: 200 + Math.min(n, 8) * 55, easing: GLIDE, fill: 'backwards'}));
       n++;
     });
     slide.onfinish = function(){
@@ -2389,6 +2453,33 @@ document.querySelectorAll('.space h1 .word, .workhead h1 .word').forEach(functio
     var t = (a.classList.contains('tile') || a.hasAttribute('data-fly')) ? a : null;
     go(hash, e, t);
   });
+
+  // Scrolling, swiping, or pressing down on the landing page does the same as the About me button
+  (function(){
+    var btn = home.querySelector('.to-about'); if (!btn) return;
+    var acc = 0, last = 0, lock = 0, ty = null;
+    function ready(){ return !home.hidden && !busy && Date.now() > lock && !document.querySelector('.lb:not([hidden])') && !document.querySelector('[data-menu].open'); }
+    function atEnd(){ return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4; }
+    function next(){ lock = Date.now() + 1200; acc = 0; btn.click(); }
+    window.addEventListener('wheel', function(e){
+      if (!ready() || e.ctrlKey || e.deltaY <= 0 || !atEnd()) { acc = 0; return; }
+      var now = Date.now(); if (now - last > 220) acc = 0; last = now;
+      acc += e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+      if (acc > 36) next();
+    }, {passive: true});
+    window.addEventListener('touchstart', function(e){ ty = e.touches.length === 1 ? e.touches[0].clientY : null; }, {passive: true});
+    window.addEventListener('touchmove', function(e){
+      if (ty === null || !ready() || !atEnd()) return;
+      if (ty - e.touches[0].clientY > 48) { ty = null; next(); }
+    }, {passive: true});
+    window.addEventListener('touchend', function(){ ty = null; }, {passive: true});
+    document.addEventListener('keydown', function(e){
+      if (!ready() || e.altKey || e.ctrlKey || e.metaKey) return;
+      var t = e.target, tag = t && t.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.key === ' ' && (tag === 'BUTTON' || tag === 'A'))) return;
+      if ((e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') && atEnd()) { e.preventDefault(); next(); }
+    });
+  })();
 
   try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
   window.addEventListener('hashchange', apply);
@@ -2421,5 +2512,4 @@ document.querySelectorAll('.space h1 .word, .workhead h1 .word').forEach(functio
 })();
 </script>
 
-</body>
-</html>
+</body></html>
